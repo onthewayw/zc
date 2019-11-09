@@ -1,35 +1,40 @@
 package com.zc.service.impl;
 
 import com.zc.bean.ZcUser;
+import com.zc.mapper.ZcUserMapper;
 import com.zc.service.ZcUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ZcUserServiceImpl implements ZcUserService {
+    @Autowired(required = false)
+    private ZcUserMapper zcUserMapper;
+
     @Override
     public int insertZcUser(ZcUser object) {
-        return 0;
+        return zcUserMapper.insertZcUser(object);
     }
 
     @Override
     public int updateZcUser(ZcUser object) {
-        return 0;
+        return zcUserMapper.updateZcUser(object);
     }
 
     @Override
     public int update(ZcUser.UpdateBuilder object) {
-        return 0;
+        return zcUserMapper.update(object);
     }
 
     @Override
     public List<ZcUser> queryZcUser(ZcUser object) {
-        return null;
+        return zcUserMapper.queryZcUser(object);
     }
 
     @Override
     public ZcUser queryZcUserLimit1(ZcUser object) {
-        return null;
+        return zcUserMapper.queryZcUserLimit1(object);
     }
 }
