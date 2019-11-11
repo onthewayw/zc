@@ -1,3 +1,4 @@
+/*
 package com.zc.utils;
 
 import io.jsonwebtoken.Jwts;
@@ -5,13 +6,17 @@ import io.jsonwebtoken.Jwts;
 import java.util.Date;
 import java.util.UUID;
 
+*/
 /**
  * @author wangjiangtao
- */
+ *//*
+
 public class TokenUtil {
-    /**
+    */
+/**
      * 创建token
-     */
+     *//*
+
     public void createToken(Long userId) {
         long nowTime = System.currentTimeMillis();
         Jwts.builder()
@@ -22,3 +27,4 @@ public class TokenUtil {
 
     }
 }
+*/
