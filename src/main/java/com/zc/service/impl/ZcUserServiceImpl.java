@@ -37,4 +37,9 @@ public class ZcUserServiceImpl implements ZcUserService {
     public ZcUser queryZcUserLimit1(ZcUser object) {
         return zcUserMapper.queryZcUserLimit1(object);
     }
+
+    @Override
+    public ZcUser queryById(Long id) {
+        return zcUserMapper.queryById(id);
+    }
 }
