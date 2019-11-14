@@ -24,11 +24,51 @@
                 `parent_id`,
             </trim>
     </sql>
+    <sql id="where_condition">
+        <if test="id != null">
+            and`id` = #{id}
+        </if>
+        <if test="loginAccount != null and loginAccount!=''">
+            and `login_account` = #{loginAccount}
+        </if>
+        <if test="password != null and password!=''">
+            and `password` = #{password}
+        </if>
+        <if test="userName != null and userName!=''">
+            and `user_name` = #{userName}
+        </if>
+        <if test="phoneNum != null and phoneNum!=''">
+            and `phone_num` = #{phoneNum}
+        </if>
+        <if test="mailAddress != null and mailAddress!=''">
+            and `mail_address` = #{mailAddress}
+        </if>
+        <if test="show != null">
+            and `show` = #{show}
+        </if>
+        <if test="parentId != null">
+            and `parent_id` = #{parentId}
+        </if>
+    </sql>
     <select id="queryById" resultMap="ZcUserMap">
         select
         <include refid="baseResult"></include>
         from `zc_user`
         where id=#{id}
     </select>
-
+    <select id="selectOne" resultMap="ZcUserMap">
+        select
+        <include refid="baseResult"></include>
+        from `zc_user`
+        where 1=1
+        <include refid="where_condition"/>
+        limit 0,1
+    </select>
+    <select id="queryByList" resultMap="ZcUserMap">
+        select
+        <include refid="baseResult"></include>
+        from `zc_user`
+        where 1=1
+        <include refid="where_condition"/>
+    </select>
 </mapper>

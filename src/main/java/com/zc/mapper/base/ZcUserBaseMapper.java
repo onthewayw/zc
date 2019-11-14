@@ -18,5 +18,4 @@ public interface ZcUserBaseMapper {
     List<ZcUser> queryZcUser(ZcUser object);
 
     ZcUser queryZcUserLimit1(ZcUser object);
-
 }

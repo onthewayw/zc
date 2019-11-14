@@ -10,4 +10,14 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface ZcUserMapper extends ZcUserBaseMapper {
     ZcUser queryById(Long id);
+
+    /**
+     * 通过手机号码查询用户信息
+     * */
+    ZcUser selectOne(ZcUser zcUser);
+
+    /**
+     * 通过条件查找用户列表
+     * */
+    List<ZcUser> queryByList(ZcUser zcUser);
 }
