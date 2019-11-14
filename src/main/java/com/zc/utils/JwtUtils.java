@@ -1,6 +1,6 @@
 package com.zc.utils;
 
-import com.zc.bean.ZcUser;
+import com.zc.bean.dto.UserInfo;
 import com.zc.constant.JwtConstants;
 import io.jsonwebtoken.*;
 import org.joda.time.DateTime;
@@ -14,16 +14,16 @@ import java.security.PublicKey;
 public class JwtUtils {
     /**
      * 私钥加密token
-     * @param zcUser   载荷中的数据
+     * @param userInfo   载荷中的数据
      * @param privateKey  私钥
      * @param expireMinutes 过期时间，单位秒
      * @return
      * @throws Exception
      * */
-    public static String generateToken(ZcUser zcUser, PrivateKey privateKey,int expireMinutes){
+    public static String generateToken(UserInfo userInfo, PrivateKey privateKey,int expireMinutes){
         return Jwts.builder()
-                .claim(JwtConstants.JWT_KEY_ID,zcUser.getId())
-                .claim(JwtConstants.JWT_KEY_USER_NAME,zcUser.getUserName())
+                .claim(JwtConstants.JWT_KEY_ID,userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_NAME,userInfo.getUsername())
                 .setExpiration(DateTime.now().plusMinutes(expireMinutes).toDate())
                 .signWith(SignatureAlgorithm.RS256,privateKey)
                 .compact();
@@ -32,16 +32,16 @@ public class JwtUtils {
     /**
      * 私钥加密token
      *
-     * @param zcUser      载荷中的数据
+     * @param userInfo      载荷中的数据
      * @param privateKey    私钥字节数组
      * @param expireMinutes 过期时间，单位秒
      * @return
      * @throws Exception
      */
-    public static String generateToken(ZcUser zcUser, byte[] privateKey, int expireMinutes) throws Exception {
+    public static String generateToken(UserInfo userInfo, byte[] privateKey, int expireMinutes) throws Exception {
         return Jwts.builder()
-                .claim(JwtConstants.JWT_KEY_ID, zcUser.getId())
-                .claim(JwtConstants.JWT_KEY_USER_NAME, zcUser.getUserName())
+                .claim(JwtConstants.JWT_KEY_ID, userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_NAME, userInfo.getUsername())
                 .setExpiration(DateTime.now().plusMinutes(expireMinutes).toDate())
                 .signWith(SignatureAlgorithm.RS256, RsaUtils.getPrivateKey(privateKey))
                 .compact();
@@ -78,10 +78,10 @@ public class JwtUtils {
      * @return 用户信息
      * @throws Exception
      */
-    public static ZcUser getInfoFromToken(String token, PublicKey publicKey) throws Exception {
+    public static UserInfo getInfoFromToken(String token, PublicKey publicKey) throws Exception {
         Jws<Claims> claimsJws = parserToken(token, publicKey);
         Claims body = claimsJws.getBody();
-        return new ZcUser(
+        return new UserInfo(
                 ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_ID)),
                 ObjectUtils.toString(body.get(JwtConstants.JWT_KEY_USER_NAME))
         );
@@ -95,10 +95,10 @@ public class JwtUtils {
      * @return 用户信息
      * @throws Exception
      */
-    public static ZcUser getInfoFromToken(String token, byte[] publicKey) throws Exception {
+    public static UserInfo getInfoFromToken(String token, byte[] publicKey) throws Exception {
         Jws<Claims> claimsJws = parserToken(token, publicKey);
         Claims body = claimsJws.getBody();
-        return new ZcUser(
+        return new UserInfo(
                 ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_ID)),
                 ObjectUtils.toString(body.get(JwtConstants.JWT_KEY_USER_NAME))
         );

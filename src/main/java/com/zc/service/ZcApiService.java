@@ -9,9 +9,5 @@ public interface ZcApiService {
 
     int updateZcApi(ZcApi object);
 
-    int update(ZcApi.UpdateBuilder object);
-
     List<ZcApi> queryZcApi(ZcApi object);
-
-    ZcApi queryZcApiLimit1(ZcApi object);
 }

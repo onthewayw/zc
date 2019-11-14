@@ -24,17 +24,7 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
     }
 
     @Override
-    public int update(ZcCardManage.UpdateBuilder object) {
-        return 0;
-    }
-
-    @Override
     public List<ZcCardManage> queryZcCardManage(ZcCardManage object) {
-        return null;
-    }
-
-    @Override
-    public ZcCardManage queryZcCardManageLimit1(ZcCardManage object) {
-        return null;
+        return zcCardManageMapper.queryZcCardManage(object);
     }
 }

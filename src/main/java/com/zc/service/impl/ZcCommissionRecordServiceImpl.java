@@ -25,17 +25,8 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
     }
 
     @Override
-    public int update(ZcCommissionRecord.UpdateBuilder object) {
-        return zcCommissionRecordMapper.update(object);
-    }
-
-    @Override
     public List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord object) {
         return zcCommissionRecordMapper.queryZcCommissionRecord(object);
     }
 
-    @Override
-    public ZcCommissionRecord queryZcCommissionRecordLimit1(ZcCommissionRecord object) {
-        return zcCommissionRecordMapper.queryZcCommissionRecordLimit1(object);
-    }
 }

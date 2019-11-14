@@ -13,8 +13,6 @@ public interface ZcUserBaseMapper {
 
     int updateZcUser(ZcUser object);
 
-    int update(ZcUser.UpdateBuilder object);
-
     List<ZcUser> queryZcUser(ZcUser object);
 
     ZcUser queryZcUserLimit1(ZcUser object);

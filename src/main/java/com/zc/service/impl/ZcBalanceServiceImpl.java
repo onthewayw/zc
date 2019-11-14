@@ -24,17 +24,7 @@ public class ZcBalanceServiceImpl implements ZcBalanceService {
     }
 
     @Override
-    public int update(ZcBalance.UpdateBuilder object) {
-        return zcBalanceMapper.update(object);
-    }
-
-    @Override
     public List<ZcBalance> queryZcBalance(ZcBalance object) {
         return zcBalanceMapper.queryZcBalance(object);
-    }
-
-    @Override
-    public ZcBalance queryZcBalanceLimit1(ZcBalance object) {
-        return zcBalanceMapper.queryZcBalanceLimit1(object);
     }
 }

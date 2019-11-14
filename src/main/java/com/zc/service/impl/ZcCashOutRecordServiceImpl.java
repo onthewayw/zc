@@ -22,19 +22,9 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
     public int updateZcCashOutRecord(ZcCashOutRecord object) {
         return zcCashOutRecordMapper.updateZcCashOutRecord(object);
     }
-
-    @Override
-    public int update(ZcCashOutRecord.UpdateBuilder object) {
-        return zcCashOutRecordMapper.update(object);
-    }
-
     @Override
     public List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord object) {
         return zcCashOutRecordMapper.queryZcCashOutRecord(object);
     }
 
-    @Override
-    public ZcCashOutRecord queryZcCashOutRecordLimit1(ZcCashOutRecord object) {
-        return zcCashOutRecordMapper.queryZcCashOutRecordLimit1(object);
-    }
 }

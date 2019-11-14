@@ -2,70 +2,90 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.base.ZcCardManageBaseMapper">
+    <resultMap type="com.zc.bean.ZcCardManage" id="ZcCardManageMap">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="code" column="code"/>
+        <result property="iccid" column="iccid"/>
+        <result property="belongUser" column="belong_user"/>
+        <result property="status" column="status"/>
+        <result property="apiName" column="api_name"/>
+        <result property="apiId" column="api_id"/>
+    </resultMap>
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `type`,
+            `code`,
+            `iccid`,
+            `belong_user`,
+            `status`,
+            `api_name`,
+            `api_id`,
+        </trim>
+    </sql>
 
 
-    <insert id="insertZcCardManage"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertZcCardManage" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `zc_card_manage`
         (
         <trim suffixOverrides=",">
-                    <if test="id!=null">
-                        `id`,
-                    </if>
-                    <if test="type!=null">
-                        `type`,
-                    </if>
-                    <if test="code!=null">
-                        `code`,
-                    </if>
-                    <if test="iccid!=null">
-                        `iccid`,
-                    </if>
-                    <if test="belongUser!=null">
-                        `belong_user`,
-                    </if>
-                    <if test="status!=null">
-                        `status`,
-                    </if>
-                    <if test="apiName!=null">
-                        `api_name`,
-                    </if>
-                    <if test="apiId!=null">
-                        `api_id`,
-                    </if>
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="type!=null">
+                `type`,
+            </if>
+            <if test="code!=null">
+                `code`,
+            </if>
+            <if test="iccid!=null">
+                `iccid`,
+            </if>
+            <if test="belongUser!=null">
+                `belong_user`,
+            </if>
+            <if test="status!=null">
+                `status`,
+            </if>
+            <if test="apiName!=null">
+                `api_name`,
+            </if>
+            <if test="apiId!=null">
+                `api_id`,
+            </if>
         </trim>
         )
         VALUES
         (
         <trim suffixOverrides=",">
-                <if test="id!=null">
-                    #{id},
-                </if>
-                <if test="type!=null">
-                    #{type},
-                </if>
-                <if test="code!=null">
-                    #{code},
-                </if>
-                <if test="iccid!=null">
-                    #{iccid},
-                </if>
-                <if test="belongUser!=null">
-                    #{belongUser},
-                </if>
-                <if test="status!=null">
-                    #{status},
-                </if>
-                <if test="apiName!=null">
-                    #{apiName},
-                </if>
-                <if test="apiId!=null">
-                    #{apiId},
-                </if>
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+            <if test="code!=null">
+                #{code},
+            </if>
+            <if test="iccid!=null">
+                #{iccid},
+            </if>
+            <if test="belongUser!=null">
+                #{belongUser},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="apiName!=null">
+                #{apiName},
+            </if>
+            <if test="apiId!=null">
+                #{apiId},
+            </if>
         </trim>
         )
     </insert>
-
-
 
 
     <update id="updateZcCardManage">
@@ -96,185 +116,15 @@
         </trim>
         WHERE
         <trim suffixOverrides="and">
-                `id` = #{id} and
+            `id` = #{id} and
         </trim>
     </update>
-
-    <update id="update">
-        UPDATE `zc_card_manage`
-        SET
-        <trim suffixOverrides=",">
-        <if test="set.type != null">
-            `type` = #{set.type},
-        </if>
-        <if test="set.code != null and set.code!=''">
-            `code` = #{set.code},
-        </if>
-        <if test="set.iccid != null and set.iccid!=''">
-            `iccid` = #{set.iccid},
-        </if>
-        <if test="set.belongUser != null and set.belongUser!=''">
-            `belong_user` = #{set.belongUser},
-        </if>
-        <if test="set.status != null">
-            `status` = #{set.status},
-        </if>
-        <if test="set.apiName != null and set.apiName!=''">
-            `api_name` = #{set.apiName},
-        </if>
-        <if test="set.apiId != null">
-            `api_id` = #{set.apiId},
-        </if>
-        </trim>
-        <trim prefix="where" suffixOverrides="and | or">
-                <if test="where.idList != null">
-                    `id` in
-                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.idSt !=null">
-                `id` >= #{where.idSt} and
-            </if>
-            <if test="where.idEd!=null">
-                `id` &lt;= #{where.idEd} and
-            </if>
-                <if test="where.typeList != null">
-                    `type` in
-                    <foreach collection="where.typeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.typeSt !=null">
-                `type` >= #{where.typeSt} and
-            </if>
-            <if test="where.typeEd!=null">
-                `type` &lt;= #{where.typeEd} and
-            </if>
-                <if test="where.codeList != null">
-                    `code` in
-                    <foreach collection="where.codeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test ="where.fuzzyCode!=null and where.fuzzyCode.size()>0">
-                (
-                <foreach collection="where.fuzzyCode"  separator="or" item="item">
-                    `Code` like concat('%',#{item},'%')
-                </foreach>
-                ) and
-            </if>
-            <if test ="where.rightFuzzyCode!=null and where.rightFuzzyCode.size()>0">
-                (
-                <foreach collection="where.rightFuzzyCode"  separator="or" item="item">
-                    `Code` like concat(#{item},'%')
-                </foreach>
-                ) and
-            </if>
-                <if test="where.iccidList != null">
-                    `iccid` in
-                    <foreach collection="where.iccidList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test ="where.fuzzyIccid!=null and where.fuzzyIccid.size()>0">
-                (
-                <foreach collection="where.fuzzyIccid"  separator="or" item="item">
-                    `Iccid` like concat('%',#{item},'%')
-                </foreach>
-                ) and
-            </if>
-            <if test ="where.rightFuzzyIccid!=null and where.rightFuzzyIccid.size()>0">
-                (
-                <foreach collection="where.rightFuzzyIccid"  separator="or" item="item">
-                    `Iccid` like concat(#{item},'%')
-                </foreach>
-                ) and
-            </if>
-                <if test="where.belongUserList != null">
-                    `belong_user` in
-                    <foreach collection="where.belongUserList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test ="where.fuzzyBelongUser!=null and where.fuzzyBelongUser.size()>0">
-                (
-                <foreach collection="where.fuzzyBelongUser"  separator="or" item="item">
-                    `Belong_user` like concat('%',#{item},'%')
-                </foreach>
-                ) and
-            </if>
-            <if test ="where.rightFuzzyBelongUser!=null and where.rightFuzzyBelongUser.size()>0">
-                (
-                <foreach collection="where.rightFuzzyBelongUser"  separator="or" item="item">
-                    `Belong_user` like concat(#{item},'%')
-                </foreach>
-                ) and
-            </if>
-                <if test="where.statusList != null">
-                    `status` in
-                    <foreach collection="where.statusList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.statusSt !=null">
-                `status` >= #{where.statusSt} and
-            </if>
-            <if test="where.statusEd!=null">
-                `status` &lt;= #{where.statusEd} and
-            </if>
-                <if test="where.apiNameList != null">
-                    `api_name` in
-                    <foreach collection="where.apiNameList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test ="where.fuzzyApiName!=null and where.fuzzyApiName.size()>0">
-                (
-                <foreach collection="where.fuzzyApiName"  separator="or" item="item">
-                    `Api_name` like concat('%',#{item},'%')
-                </foreach>
-                ) and
-            </if>
-            <if test ="where.rightFuzzyApiName!=null and where.rightFuzzyApiName.size()>0">
-                (
-                <foreach collection="where.rightFuzzyApiName"  separator="or" item="item">
-                    `Api_name` like concat(#{item},'%')
-                </foreach>
-                ) and
-            </if>
-                <if test="where.apiIdList != null">
-                    `api_id` in
-                    <foreach collection="where.apiIdList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.apiIdSt !=null">
-                `api_id` >= #{where.apiIdSt} and
-            </if>
-            <if test="where.apiIdEd!=null">
-                `api_id` &lt;= #{where.apiIdEd} and
-            </if>
-        </trim>
-    </update>
-
-
-    <resultMap type="com.zc.bean.ZcCardManage" id="ZcCardManageMap">
-        <result property="id" column="id"/>
-        <result property="type" column="type"/>
-        <result property="code" column="code"/>
-        <result property="iccid" column="iccid"/>
-        <result property="belongUser" column="belong_user"/>
-        <result property="status" column="status"/>
-        <result property="apiName" column="api_name"/>
-        <result property="apiId" column="api_id"/>
-    </resultMap>
 
 
     <select id="queryZcCardManage" resultMap="ZcCardManageMap">
         select
-        <include refid="baseResult"></include>
-        from  `zc_card_manage`
+        <include refid="allResult"></include>
+        from `zc_card_manage`
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and
@@ -300,396 +150,6 @@
             <if test="apiId != null">
                 `api_id` = #{apiId} and
             </if>
-            <if test = "(_parameter instanceof .ZcCardManage$QueryBuilder) == true">
-                <if test="idList != null">
-                    `id` in
-                    <foreach collection="idList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="idSt !=null">
-                    `id` >= #{idSt} and
-                </if>
-                <if test="idEd!=null">
-                    `id` &lt;= #{idEd} and
-                </if>
-                <if test="typeList != null">
-                    `type` in
-                    <foreach collection="typeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="typeSt !=null">
-                    `type` >= #{typeSt} and
-                </if>
-                <if test="typeEd!=null">
-                    `type` &lt;= #{typeEd} and
-                </if>
-                <if test="codeList != null">
-                    `code` in
-                    <foreach collection="codeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
-                    (
-                    <foreach collection="fuzzyCode"  separator="or" item="item">
-                        `Code` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
-                    (
-                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
-                        `Code` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test="iccidList != null">
-                    `iccid` in
-                    <foreach collection="iccidList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test ="fuzzyIccid!=null and fuzzyIccid.size()>0">
-                    (
-                    <foreach collection="fuzzyIccid"  separator="or" item="item">
-                        `Iccid` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyIccid!=null and rightFuzzyIccid.size()>0">
-                    (
-                    <foreach collection="rightFuzzyIccid"  separator="or" item="item">
-                        `Iccid` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test="belongUserList != null">
-                    `belong_user` in
-                    <foreach collection="belongUserList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test ="fuzzyBelongUser!=null and fuzzyBelongUser.size()>0">
-                    (
-                    <foreach collection="fuzzyBelongUser"  separator="or" item="item">
-                        `Belong_user` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyBelongUser!=null and rightFuzzyBelongUser.size()>0">
-                    (
-                    <foreach collection="rightFuzzyBelongUser"  separator="or" item="item">
-                        `Belong_user` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test="statusList != null">
-                    `status` in
-                    <foreach collection="statusList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="statusSt !=null">
-                    `status` >= #{statusSt} and
-                </if>
-                <if test="statusEd!=null">
-                    `status` &lt;= #{statusEd} and
-                </if>
-                <if test="apiNameList != null">
-                    `api_name` in
-                    <foreach collection="apiNameList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test ="fuzzyApiName!=null and fuzzyApiName.size()>0">
-                    (
-                    <foreach collection="fuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyApiName!=null and rightFuzzyApiName.size()>0">
-                    (
-                    <foreach collection="rightFuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test="apiIdList != null">
-                    `api_id` in
-                    <foreach collection="apiIdList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="apiIdSt !=null">
-                    `api_id` >= #{apiIdSt} and
-                </if>
-                <if test="apiIdEd!=null">
-                    `api_id` &lt;= #{apiIdEd} and
-                </if>
-            </if>
         </trim>
     </select>
-
-    <select id="queryZcCardManageLimit1" resultMap="ZcCardManageMap">
-        select
-        <include refid="baseResult"></include>
-        from  `zc_card_manage`
-        <trim prefix="where" suffixOverrides="and | or">
-            <if test="id != null">
-                `id` = #{id} and
-            </if>
-            <if test="type != null">
-                `type` = #{type} and
-            </if>
-            <if test="code != null and code!=''">
-                `code` = #{code} and
-            </if>
-            <if test="iccid != null and iccid!=''">
-                `iccid` = #{iccid} and
-            </if>
-            <if test="belongUser != null and belongUser!=''">
-                `belong_user` = #{belongUser} and
-            </if>
-            <if test="status != null">
-                `status` = #{status} and
-            </if>
-            <if test="apiName != null and apiName!=''">
-                `api_name` = #{apiName} and
-            </if>
-            <if test="apiId != null">
-                `api_id` = #{apiId} and
-            </if>
-            <if test = "(_parameter instanceof .ZcCardManage$QueryBuilder) == true">
-                    <if test="idList != null">
-                        `id` in
-                        <foreach collection="idList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="idSt !=null">
-                    `id` >= #{idSt} and
-                </if>
-                <if test="idEd!=null">
-                    `id` &lt;= #{idEd} and
-                </if>
-                    <if test="typeList != null">
-                        `type` in
-                        <foreach collection="typeList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="typeSt !=null">
-                    `type` >= #{typeSt} and
-                </if>
-                <if test="typeEd!=null">
-                    `type` &lt;= #{typeEd} and
-                </if>
-                    <if test="codeList != null">
-                        `code` in
-                        <foreach collection="codeList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
-                    (
-                    <foreach collection="fuzzyCode"  separator="or" item="item">
-                        `Code` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
-                    (
-                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
-                        `Code` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                    <if test="iccidList != null">
-                        `iccid` in
-                        <foreach collection="iccidList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test ="fuzzyIccid!=null and fuzzyIccid.size()>0">
-                    (
-                    <foreach collection="fuzzyIccid"  separator="or" item="item">
-                        `Iccid` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyIccid!=null and rightFuzzyIccid.size()>0">
-                    (
-                    <foreach collection="rightFuzzyIccid"  separator="or" item="item">
-                        `Iccid` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                    <if test="belongUserList != null">
-                        `belong_user` in
-                        <foreach collection="belongUserList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test ="fuzzyBelongUser!=null and fuzzyBelongUser.size()>0">
-                    (
-                    <foreach collection="fuzzyBelongUser"  separator="or" item="item">
-                        `Belong_user` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyBelongUser!=null and rightFuzzyBelongUser.size()>0">
-                    (
-                    <foreach collection="rightFuzzyBelongUser"  separator="or" item="item">
-                        `Belong_user` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                    <if test="statusList != null">
-                        `status` in
-                        <foreach collection="statusList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="statusSt !=null">
-                    `status` >= #{statusSt} and
-                </if>
-                <if test="statusEd!=null">
-                    `status` &lt;= #{statusEd} and
-                </if>
-                    <if test="apiNameList != null">
-                        `api_name` in
-                        <foreach collection="apiNameList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test ="fuzzyApiName!=null and fuzzyApiName.size()>0">
-                    (
-                    <foreach collection="fuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyApiName!=null and rightFuzzyApiName.size()>0">
-                    (
-                    <foreach collection="rightFuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                    <if test="apiIdList != null">
-                        `api_id` in
-                        <foreach collection="apiIdList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="apiIdSt !=null">
-                    `api_id` >= #{apiIdSt} and
-                </if>
-                <if test="apiIdEd!=null">
-                    `api_id` &lt;= #{apiIdEd} and
-                </if>
-            </if>
-        </trim>
-        limit 1
-    </select>
-
-    <sql id="allResult">
-        <trim suffixOverrides=",">
-        `id`,
-        `type`,
-        `code`,
-        `iccid`,
-        `belong_user`,
-        `status`,
-        `api_name`,
-        `api_id`,
-        </trim>
-    </sql>
-
-
-
-    <sql id="baseResult">
-        <trim suffixOverrides=",">
-            <if test = "(_parameter instanceof .ZcCardManage$QueryBuilder) == true">
-
-                <if test="fetchFields==null">
-                    <include refid="allResult"></include>
-                </if>
-                <if test="fetchFields!=null">
-                    <if test="fetchFields.AllFields !=null">
-                        <include refid="allResult"></include>
-                    </if>
-                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
-                        <include refid="allResult"></include>
-                    </if>
-                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
-                    <if test="fetchFields.fetchFields.id==true">
-                        `id`,
-                    </if>
-                    <if test="fetchFields.fetchFields.type==true">
-                        `type`,
-                    </if>
-                    <if test="fetchFields.fetchFields.code==true">
-                        `code`,
-                    </if>
-                    <if test="fetchFields.fetchFields.iccid==true">
-                        `iccid`,
-                    </if>
-                    <if test="fetchFields.fetchFields.belongUser==true">
-                        `belong_user`,
-                    </if>
-                    <if test="fetchFields.fetchFields.status==true">
-                        `status`,
-                    </if>
-                    <if test="fetchFields.fetchFields.apiName==true">
-                        `api_name`,
-                    </if>
-                    <if test="fetchFields.fetchFields.apiId==true">
-                        `api_id`,
-                    </if>
-                    </if>
-                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
-                    <if test="fetchFields.excludeFields.id==null">
-                        `id`,
-                    </if>
-                    <if test="fetchFields.excludeFields.type==null">
-                        `type`,
-                    </if>
-                    <if test="fetchFields.excludeFields.code==null">
-                        `code`,
-                    </if>
-                    <if test="fetchFields.excludeFields.iccid==null">
-                        `iccid`,
-                    </if>
-                    <if test="fetchFields.excludeFields.belongUser==null">
-                        `belong_user`,
-                    </if>
-                    <if test="fetchFields.excludeFields.status==null">
-                        `status`,
-                    </if>
-                    <if test="fetchFields.excludeFields.apiName==null">
-                        `api_name`,
-                    </if>
-                    <if test="fetchFields.excludeFields.apiId==null">
-                        `api_id`,
-                    </if>
-                    </if>
-                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
-                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
-                        `#{item}`
-                        </foreach>
-                    </if>
-                </if>
-            </if>
-            <if test="(_parameter instanceof .ZcCardManage$QueryBuilder) == false" >
-                <include refid="allResult"></include>
-            </if>
-
-        </trim>
-    </sql>
-
-
 </mapper>

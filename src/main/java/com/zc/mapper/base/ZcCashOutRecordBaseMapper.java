@@ -13,10 +13,6 @@ public interface ZcCashOutRecordBaseMapper {
 
     int updateZcCashOutRecord(ZcCashOutRecord object);
 
-    int update(ZcCashOutRecord.UpdateBuilder object);
-
     List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord object);
-
-    ZcCashOutRecord queryZcCashOutRecordLimit1(ZcCashOutRecord object);
 
 }

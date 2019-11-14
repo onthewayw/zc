@@ -24,17 +24,7 @@ public class ZcApiServiceImpl implements ZcApiService {
     }
 
     @Override
-    public int update(ZcApi.UpdateBuilder api) {
-        return zcApiMapper.update(api);
-    }
-
-    @Override
     public List<ZcApi> queryZcApi(ZcApi api) {
         return zcApiMapper.queryZcApi(api);
-    }
-
-    @Override
-    public ZcApi queryZcApiLimit1(ZcApi api) {
-        return zcApiMapper.queryZcApiLimit1(api);
     }
 }

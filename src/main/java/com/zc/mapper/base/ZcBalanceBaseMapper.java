@@ -13,10 +13,6 @@ public interface ZcBalanceBaseMapper {
 
     int updateZcBalance(ZcBalance object);
 
-    int update(ZcBalance.UpdateBuilder object);
-
     List<ZcBalance> queryZcBalance(ZcBalance object);
-
-    ZcBalance queryZcBalanceLimit1(ZcBalance object);
 
 }

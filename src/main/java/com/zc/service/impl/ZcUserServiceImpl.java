@@ -30,11 +30,6 @@ public class ZcUserServiceImpl implements ZcUserService {
     }
 
     @Override
-    public int update(ZcUser.UpdateBuilder object) {
-        return zcUserMapper.update(object);
-    }
-
-    @Override
     public List<ZcUser> queryZcUser(ZcUser object) {
         return zcUserMapper.queryZcUser(object);
     }

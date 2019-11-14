@@ -13,10 +13,6 @@ public interface ZcCommissionRecordBaseMapper {
 
     int updateZcCommissionRecord(ZcCommissionRecord object);
 
-    int update(ZcCommissionRecord.UpdateBuilder object);
-
     List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord object);
-
-    ZcCommissionRecord queryZcCommissionRecordLimit1(ZcCommissionRecord object);
 
 }

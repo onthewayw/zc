@@ -7,10 +7,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 /**
 *
 *  @author author

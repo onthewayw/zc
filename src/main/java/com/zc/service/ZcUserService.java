@@ -10,7 +10,6 @@ public interface ZcUserService {
 
     int updateZcUser(ZcUser object);
 
-    int update(ZcUser.UpdateBuilder object);
 
     List<ZcUser> queryZcUser(ZcUser object);
 

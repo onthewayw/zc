@@ -2,58 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.base.ZcApiBaseMapper">
+    <resultMap type="com.zc.bean.ZcApi" id="ZcApiMap">
+        <result property="id" column="id"/>
+        <result property="apiName" column="api_name"/>
+        <result property="endTime" column="end_time"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="agentCostPrice" column="agent_cost_price"/>
+        <result property="terminalPrice" column="terminal_price"/>
+    </resultMap>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `api_name`,
+            `end_time`,
+            `cost_price`,
+            `agent_cost_price`,
+            `terminal_price`,
+        </trim>
+    </sql>
 
 
-    <insert id="insertZcApi"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertZcApi" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `zc_api`
         (
         <trim suffixOverrides=",">
-                    <if test="id!=null">
-                        `id`,
-                    </if>
-                    <if test="apiName!=null">
-                        `api_name`,
-                    </if>
-                    <if test="endTime!=null">
-                        `end_time`,
-                    </if>
-                    <if test="costPrice!=null">
-                        `cost_price`,
-                    </if>
-                    <if test="agentCostPrice!=null">
-                        `agent_cost_price`,
-                    </if>
-                    <if test="terminalPrice!=null">
-                        `terminal_price`,
-                    </if>
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="apiName!=null">
+                `api_name`,
+            </if>
+            <if test="endTime!=null">
+                `end_time`,
+            </if>
+            <if test="costPrice!=null">
+                `cost_price`,
+            </if>
+            <if test="agentCostPrice!=null">
+                `agent_cost_price`,
+            </if>
+            <if test="terminalPrice!=null">
+                `terminal_price`,
+            </if>
         </trim>
         )
         VALUES
         (
         <trim suffixOverrides=",">
-                <if test="id!=null">
-                    #{id},
-                </if>
-                <if test="apiName!=null">
-                    #{apiName},
-                </if>
-                <if test="endTime!=null">
-                    #{endTime},
-                </if>
-                <if test="costPrice!=null">
-                    #{costPrice},
-                </if>
-                <if test="agentCostPrice!=null">
-                    #{agentCostPrice},
-                </if>
-                <if test="terminalPrice!=null">
-                    #{terminalPrice},
-                </if>
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="apiName!=null">
+                #{apiName},
+            </if>
+            <if test="endTime!=null">
+                #{endTime},
+            </if>
+            <if test="costPrice!=null">
+                #{costPrice},
+            </if>
+            <if test="agentCostPrice!=null">
+                #{agentCostPrice},
+            </if>
+            <if test="terminalPrice!=null">
+                #{terminalPrice},
+            </if>
         </trim>
         )
     </insert>
-
-
 
 
     <update id="updateZcApi">
@@ -78,129 +95,15 @@
         </trim>
         WHERE
         <trim suffixOverrides="and">
-                `id` = #{id} and
+            `id` = #{id} and
         </trim>
     </update>
-
-    <update id="update">
-        UPDATE `zc_api`
-        SET
-        <trim suffixOverrides=",">
-        <if test="set.apiName != null and set.apiName!=''">
-            `api_name` = #{set.apiName},
-        </if>
-        <if test="set.endTime != null">
-            `end_time` = #{set.endTime},
-        </if>
-        <if test="set.costPrice != null">
-            `cost_price` = #{set.costPrice},
-        </if>
-        <if test="set.agentCostPrice != null">
-            `agent_cost_price` = #{set.agentCostPrice},
-        </if>
-        <if test="set.terminalPrice != null">
-            `terminal_price` = #{set.terminalPrice},
-        </if>
-        </trim>
-        <trim prefix="where" suffixOverrides="and | or">
-                <if test="where.idList != null">
-                    `id` in
-                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.idSt !=null">
-                `id` >= #{where.idSt} and
-            </if>
-            <if test="where.idEd!=null">
-                `id` &lt;= #{where.idEd} and
-            </if>
-                <if test="where.apiNameList != null">
-                    `api_name` in
-                    <foreach collection="where.apiNameList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test ="where.fuzzyApiName!=null and where.fuzzyApiName.size()>0">
-                (
-                <foreach collection="where.fuzzyApiName"  separator="or" item="item">
-                    `Api_name` like concat('%',#{item},'%')
-                </foreach>
-                ) and
-            </if>
-            <if test ="where.rightFuzzyApiName!=null and where.rightFuzzyApiName.size()>0">
-                (
-                <foreach collection="where.rightFuzzyApiName"  separator="or" item="item">
-                    `Api_name` like concat(#{item},'%')
-                </foreach>
-                ) and
-            </if>
-                <if test="where.endTimeList != null">
-                    `end_time` in
-                    <foreach collection="where.endTimeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.endTimeSt !=null">
-                `end_time` >= #{where.endTimeSt} and
-            </if>
-            <if test="where.endTimeEd!=null">
-                `end_time` &lt;= #{where.endTimeEd} and
-            </if>
-                <if test="where.costPriceList != null">
-                    `cost_price` in
-                    <foreach collection="where.costPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.costPriceSt !=null">
-                `cost_price` >= #{where.costPriceSt} and
-            </if>
-            <if test="where.costPriceEd!=null">
-                `cost_price` &lt;= #{where.costPriceEd} and
-            </if>
-                <if test="where.agentCostPriceList != null">
-                    `agent_cost_price` in
-                    <foreach collection="where.agentCostPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.agentCostPriceSt !=null">
-                `agent_cost_price` >= #{where.agentCostPriceSt} and
-            </if>
-            <if test="where.agentCostPriceEd!=null">
-                `agent_cost_price` &lt;= #{where.agentCostPriceEd} and
-            </if>
-                <if test="where.terminalPriceList != null">
-                    `terminal_price` in
-                    <foreach collection="where.terminalPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-            <if test="where.terminalPriceSt !=null">
-                `terminal_price` >= #{where.terminalPriceSt} and
-            </if>
-            <if test="where.terminalPriceEd!=null">
-                `terminal_price` &lt;= #{where.terminalPriceEd} and
-            </if>
-        </trim>
-    </update>
-
-
-    <resultMap type="com.zc.bean.ZcApi" id="ZcApiMap">
-        <result property="id" column="id"/>
-        <result property="apiName" column="api_name"/>
-        <result property="endTime" column="end_time"/>
-        <result property="costPrice" column="cost_price"/>
-        <result property="agentCostPrice" column="agent_cost_price"/>
-        <result property="terminalPrice" column="terminal_price"/>
-    </resultMap>
 
 
     <select id="queryZcApi" resultMap="ZcApiMap">
         select
-        <include refid="baseResult"></include>
-        from  `zc_api`
+        <include refid="allResult"/>
+        from `zc_api`
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and
@@ -220,280 +123,8 @@
             <if test="terminalPrice != null">
                 `terminal_price` = #{terminalPrice} and
             </if>
-            <if test = "(_parameter instanceof .ZcApi$QueryBuilder) == true">
-                <if test="idList != null">
-                    `id` in
-                    <foreach collection="idList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="idSt !=null">
-                    `id` >= #{idSt} and
-                </if>
-                <if test="idEd!=null">
-                    `id` &lt;= #{idEd} and
-                </if>
-                <if test="apiNameList != null">
-                    `api_name` in
-                    <foreach collection="apiNameList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test ="fuzzyApiName!=null and fuzzyApiName.size()>0">
-                    (
-                    <foreach collection="fuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyApiName!=null and rightFuzzyApiName.size()>0">
-                    (
-                    <foreach collection="rightFuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test="endTimeList != null">
-                    `end_time` in
-                    <foreach collection="endTimeList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="endTimeSt !=null">
-                    `end_time` >= #{endTimeSt} and
-                </if>
-                <if test="endTimeEd!=null">
-                    `end_time` &lt;= #{endTimeEd} and
-                </if>
-                <if test="costPriceList != null">
-                    `cost_price` in
-                    <foreach collection="costPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="costPriceSt !=null">
-                    `cost_price` >= #{costPriceSt} and
-                </if>
-                <if test="costPriceEd!=null">
-                    `cost_price` &lt;= #{costPriceEd} and
-                </if>
-                <if test="agentCostPriceList != null">
-                    `agent_cost_price` in
-                    <foreach collection="agentCostPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="agentCostPriceSt !=null">
-                    `agent_cost_price` >= #{agentCostPriceSt} and
-                </if>
-                <if test="agentCostPriceEd!=null">
-                    `agent_cost_price` &lt;= #{agentCostPriceEd} and
-                </if>
-                <if test="terminalPriceList != null">
-                    `terminal_price` in
-                    <foreach collection="terminalPriceList" close=")" open="(" separator="," item="item">
-                        #{item}
-                    </foreach> and
-                </if>
-                <if test="terminalPriceSt !=null">
-                    `terminal_price` >= #{terminalPriceSt} and
-                </if>
-                <if test="terminalPriceEd!=null">
-                    `terminal_price` &lt;= #{terminalPriceEd} and
-                </if>
-            </if>
         </trim>
     </select>
-
-    <select id="queryZcApiLimit1" resultMap="ZcApiMap">
-        select
-        <include refid="baseResult"></include>
-        from  `zc_api`
-        <trim prefix="where" suffixOverrides="and | or">
-            <if test="id != null">
-                `id` = #{id} and
-            </if>
-            <if test="apiName != null and apiName!=''">
-                `api_name` = #{apiName} and
-            </if>
-            <if test="endTime != null">
-                `end_time` = #{endTime} and
-            </if>
-            <if test="costPrice != null">
-                `cost_price` = #{costPrice} and
-            </if>
-            <if test="agentCostPrice != null">
-                `agent_cost_price` = #{agentCostPrice} and
-            </if>
-            <if test="terminalPrice != null">
-                `terminal_price` = #{terminalPrice} and
-            </if>
-            <if test = "(_parameter instanceof .ZcApi$QueryBuilder) == true">
-                    <if test="idList != null">
-                        `id` in
-                        <foreach collection="idList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="idSt !=null">
-                    `id` >= #{idSt} and
-                </if>
-                <if test="idEd!=null">
-                    `id` &lt;= #{idEd} and
-                </if>
-                    <if test="apiNameList != null">
-                        `api_name` in
-                        <foreach collection="apiNameList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test ="fuzzyApiName!=null and fuzzyApiName.size()>0">
-                    (
-                    <foreach collection="fuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                <if test ="rightFuzzyApiName!=null and rightFuzzyApiName.size()>0">
-                    (
-                    <foreach collection="rightFuzzyApiName"  separator="or" item="item">
-                        `Api_name` like concat(#{item},'%')
-                    </foreach>
-                    ) and
-                </if>
-                    <if test="endTimeList != null">
-                        `end_time` in
-                        <foreach collection="endTimeList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="endTimeSt !=null">
-                    `end_time` >= #{endTimeSt} and
-                </if>
-                <if test="endTimeEd!=null">
-                    `end_time` &lt;= #{endTimeEd} and
-                </if>
-                    <if test="costPriceList != null">
-                        `cost_price` in
-                        <foreach collection="costPriceList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="costPriceSt !=null">
-                    `cost_price` >= #{costPriceSt} and
-                </if>
-                <if test="costPriceEd!=null">
-                    `cost_price` &lt;= #{costPriceEd} and
-                </if>
-                    <if test="agentCostPriceList != null">
-                        `agent_cost_price` in
-                        <foreach collection="agentCostPriceList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="agentCostPriceSt !=null">
-                    `agent_cost_price` >= #{agentCostPriceSt} and
-                </if>
-                <if test="agentCostPriceEd!=null">
-                    `agent_cost_price` &lt;= #{agentCostPriceEd} and
-                </if>
-                    <if test="terminalPriceList != null">
-                        `terminal_price` in
-                        <foreach collection="terminalPriceList" close=")" open="(" separator="," item="item">
-                            #{item}
-                        </foreach> and
-                    </if>
-                <if test="terminalPriceSt !=null">
-                    `terminal_price` >= #{terminalPriceSt} and
-                </if>
-                <if test="terminalPriceEd!=null">
-                    `terminal_price` &lt;= #{terminalPriceEd} and
-                </if>
-            </if>
-        </trim>
-        limit 1
-    </select>
-
-    <sql id="allResult">
-        <trim suffixOverrides=",">
-        `id`,
-        `api_name`,
-        `end_time`,
-        `cost_price`,
-        `agent_cost_price`,
-        `terminal_price`,
-        </trim>
-    </sql>
-
-
-
-    <sql id="baseResult">
-        <trim suffixOverrides=",">
-            <if test = "(_parameter instanceof .ZcApi$QueryBuilder) == true">
-
-                <if test="fetchFields==null">
-                    <include refid="allResult"></include>
-                </if>
-                <if test="fetchFields!=null">
-                    <if test="fetchFields.AllFields !=null">
-                        <include refid="allResult"></include>
-                    </if>
-                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
-                        <include refid="allResult"></include>
-                    </if>
-                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
-                    <if test="fetchFields.fetchFields.id==true">
-                        `id`,
-                    </if>
-                    <if test="fetchFields.fetchFields.apiName==true">
-                        `api_name`,
-                    </if>
-                    <if test="fetchFields.fetchFields.endTime==true">
-                        `end_time`,
-                    </if>
-                    <if test="fetchFields.fetchFields.costPrice==true">
-                        `cost_price`,
-                    </if>
-                    <if test="fetchFields.fetchFields.agentCostPrice==true">
-                        `agent_cost_price`,
-                    </if>
-                    <if test="fetchFields.fetchFields.terminalPrice==true">
-                        `terminal_price`,
-                    </if>
-                    </if>
-                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
-                    <if test="fetchFields.excludeFields.id==null">
-                        `id`,
-                    </if>
-                    <if test="fetchFields.excludeFields.apiName==null">
-                        `api_name`,
-                    </if>
-                    <if test="fetchFields.excludeFields.endTime==null">
-                        `end_time`,
-                    </if>
-                    <if test="fetchFields.excludeFields.costPrice==null">
-                        `cost_price`,
-                    </if>
-                    <if test="fetchFields.excludeFields.agentCostPrice==null">
-                        `agent_cost_price`,
-                    </if>
-                    <if test="fetchFields.excludeFields.terminalPrice==null">
-                        `terminal_price`,
-                    </if>
-                    </if>
-                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
-                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
-                        `#{item}`
-                        </foreach>
-                    </if>
-                </if>
-            </if>
-            <if test="(_parameter instanceof .ZcApi$QueryBuilder) == false" >
-                <include refid="allResult"></include>
-            </if>
-
-        </trim>
-    </sql>
 
 
 </mapper>
