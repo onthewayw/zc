@@ -23,7 +23,6 @@ public class AESSecretUtil {
      * @param data 待加密内容
      * @param key  加密秘钥
      * @return 加密后的数组
-     * @deprecated AES加密
      */
     public static byte[] encrypt(String data, String key) {
         if (StringUtils.isNotBlank(data)) {
@@ -52,7 +51,6 @@ public class AESSecretUtil {
      * @param data 待加密内容
      * @param key  加密秘钥
      * @return 返回String
-     * @deprecated AES加密
      */
     public static String encryptToStr(String data, String key) {
 
@@ -63,7 +61,6 @@ public class AESSecretUtil {
     /**
      * @param data - 待解密字节数组
      * @param key  - 秘钥
-     * @deprecated : AES解密
      */
     public static byte[] decrypt(byte[] data, String key) {
         if (ArrayUtils.isNotEmpty(data)) {
@@ -91,7 +88,6 @@ public class AESSecretUtil {
      * @param enCryptdata 待解密字节数组
      * @param key         秘钥
      * @return 返回String
-     * @deprecated : AES解密
      */
     public static String decryptToStr(String enCryptdata, String key) {
         return StringUtils.isNotBlank(enCryptdata) ? new String(decrypt(parseHexStr2Byte(enCryptdata), key)) : null;
@@ -99,7 +95,6 @@ public class AESSecretUtil {
 
     /**
      * @param buf - 二进制数组
-     * @deprecated : 将二进制转换成16进制
      */
     public static String parseByte2HexStr(byte buf[]) {
         StringBuffer sb = new StringBuffer();
@@ -115,7 +110,6 @@ public class AESSecretUtil {
 
     /**
      * @param hexStr - 16进制字符串
-     * @deprecated : 将16进制转换为二进制
      */
     public static byte[] parseHexStr2Byte(String hexStr) {
         if (hexStr.length() < 1) {

@@ -30,16 +30,15 @@ public class TokenUtils {
 
     /**
      * @param userId     - 用户编号
-     * @param userName   - 用户名
+     * @param username   - 用户名
      * @param identities - 客户端信息（变长参数），目前包含浏览器信息，用于客户端拦截器校验，防止跨域非法访问
      * @Author: Helon
-     * @deprecated 生成JWT字符串
      * <br/>格式：A.B.C
      * <br/>A-header头信息
      * <br/>B-payload 有效负荷
      * <br/>C-signature 签名信息 是将header和payload进行加密生成的
      */
-    public static String generateJWT(String userId, String userName, String... identities) {
+    public static String generateJWT(String userId, String username, String... identities) {
         //签名算法，选择SHA-256
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         //获取当前系统时间
@@ -71,7 +70,7 @@ public class TokenUtils {
                 //加密后的客户编号
                 .claim("userId", AESSecretUtil.encryptToStr(userId, SecretConstant.DATAKEY))
                 //用户名称
-                .claim("userName", userName)
+                .claim("username", username)
                 //客户端浏览器信息
                 .claim("userAgent", identities[0])
                 //signature
@@ -88,7 +87,6 @@ public class TokenUtils {
     /**
      * @param jsonWebToken - 页面传过来的token
      * @return Claims对象
-     * @deprecated: 解析JWT
      */
     public static Claims parseJWT(String jsonWebToken) {
         Claims claims = null;
@@ -108,7 +106,6 @@ public class TokenUtils {
     }
     /**
      * @param jsonWebToken - 页面传过来的token
-     * @deprecated: 校验JWT是否有效
      * @return json字符串的demo:<br/>
      * {"freshToken":"A.B.C","userName":"Judy","userId":"123", "userAgent":"xxxx"}
      * <br/>freshToken-刷新后的jwt
