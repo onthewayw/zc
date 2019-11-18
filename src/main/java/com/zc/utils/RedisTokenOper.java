@@ -21,10 +21,15 @@ public class RedisTokenOper {
     @Autowired(required = false)
     private HttpServletRequest request;
 
-    //redis中key的前缀
-    private String redisKeyPrefix = "zc:redis:";
-    // 按秒来算  半个小时过期时间
-    private long expireTime = 1800L;
+    /**
+     * redis中key的前缀
+     */
+    private final String redisKeyPrefix = "zc:user:token:";
+
+    /**
+     * 按秒来算  半个小时过期时间
+     */
+    private final long expireTime = 1800L;
 
 
     public void setInfo(Object key, Object info) {

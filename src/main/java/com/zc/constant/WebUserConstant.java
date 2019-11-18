@@ -6,4 +6,6 @@ package com.zc.constant;
 public class WebUserConstant {
     public static final String SESSIONUSERINFO = "sessionUserInfo";
 
+    //token  header key
+    public static final String TOKENAUTHORIZATION = "Authorization";
 }
