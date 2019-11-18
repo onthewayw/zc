@@ -2,6 +2,9 @@ package com.zc.utils;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * @author wangjiangtao
+ */
 public class ObjectUtils {
     public static String toString(Object obj) {
         if (obj == null) {

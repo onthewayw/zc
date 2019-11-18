@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -26,8 +27,9 @@ public class LoginController {
      * @return
      */
     @GetMapping("/login")
-    public Map<String, Object> login(@RequestParam("phonenum") String phonenum, @RequestParam("password") String password) {
+    public Map<String, Object> login(@RequestParam("phonenum") String phonenum, @RequestParam("password") String password, HttpServletRequest request) {
+
         //1 根据手机号查询
-        return zcUserService.login(phonenum, password);
+        return zcUserService.login(phonenum, password,request);
     }
 }

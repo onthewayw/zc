@@ -3,13 +3,17 @@ package com.zc.service.impl;
 import com.zc.bean.ZcUser;
 import com.zc.constant.SecretConstant;
 import com.zc.constant.StatusEnum;
+import com.zc.constant.WebUserConstant;
 import com.zc.mapper.ZcUserMapper;
 import com.zc.service.ZcUserService;
 import com.zc.utils.CodecUtils;
+import com.zc.utils.RedisTokenOper;
+import com.zc.utils.TokenUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +22,9 @@ import java.util.Map;
 public class ZcUserServiceImpl implements ZcUserService {
     @Autowired(required = false)
     private ZcUserMapper zcUserMapper;
+
+    @Autowired(required = false)
+    private RedisTokenOper redisTokenOper;
 
     @Override
     public int insertZcUser(ZcUser object) {
@@ -45,7 +52,7 @@ public class ZcUserServiceImpl implements ZcUserService {
     }
 
     @Override
-    public Map<String, Object> login(String phonenum, String password) {
+    public Map<String, Object> login(String phonenum, String password, HttpServletRequest request) {
         Map<String, Object> returnMap = new HashMap<>(8);
         int status = StatusEnum.LOGIN_STATUS_SYSTEM_ERR.getCode();
         String message = StatusEnum.LOGIN_STATUS_SYSTEM_ERR.getName();
@@ -76,6 +83,12 @@ public class ZcUserServiceImpl implements ZcUserService {
                 returnMap.put("message", message);
                 return returnMap;
             }
+            //表示可以登录
+            String userAgent = request.getHeader("user-agent");
+            String token = TokenUtils.generateJWT(zcUser.getId() + "", zcUser.getUserName(), userAgent);
+            //将信息放入redis
+            redisTokenOper.setInfo(token, WebUserConstant.SESSIONUSERINFO, zcUser);
+            returnMap.put("token", token);
             returnMap.put("userInfo", zcUser);
             returnMap.put("status", StatusEnum.LOGIN_STATUS_SUCCESS.getCode());
             returnMap.put("message", StatusEnum.LOGIN_STATUS_SUCCESS.getName());
