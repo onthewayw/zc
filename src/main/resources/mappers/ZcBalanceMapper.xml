@@ -150,6 +150,12 @@
             <if test="remarks != null and remarks!=''">
                 `remarks` = #{remarks} and
             </if>
+            <if test="createStartTime != null and createStartTime!=''">
+                `create_time` &gt;= #{createStartTime} and
+            </if>
+            <if test="creteEndTime != null and creteEndTime!=''">
+                `create_time` &lt;= #{creteEndTime} and
+            </if>
         </trim>
     </select>
 
