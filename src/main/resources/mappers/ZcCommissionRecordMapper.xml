@@ -2,6 +2,145 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.ZcCommissionRecordMapper">
+    <resultMap type="com.zc.bean.ZcCommissionRecord" id="ZcCommissionRecordMap">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="changeType" column="change_type"/>
+        <result property="changeAmount" column="change_amount"/>
+        <result property="changeAfterAmount" column="change_after_amount"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `code`,
+            `create_time`,
+            `change_type`,
+            `change_amount`,
+            `change_after_amount`,
+            `remark`,
+        </trim>
+    </sql>
+
+    <insert id="insertZcCommissionRecord"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `zc_commission_record`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="code!=null">
+                `code`,
+            </if>
+            <if test="createTime!=null">
+                `create_time`,
+            </if>
+            <if test="changeType!=null">
+                `change_type`,
+            </if>
+            <if test="changeAmount!=null">
+                `change_amount`,
+            </if>
+            <if test="changeAfterAmount!=null">
+                `change_after_amount`,
+            </if>
+            <if test="remark!=null">
+                `remark`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="code!=null">
+                #{code},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="changeType!=null">
+                #{changeType},
+            </if>
+            <if test="changeAmount!=null">
+                #{changeAmount},
+            </if>
+            <if test="changeAfterAmount!=null">
+                #{changeAfterAmount},
+            </if>
+            <if test="remark!=null">
+                #{remark},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateZcCommissionRecord">
+        UPDATE `zc_commission_record`
+        SET
+        <trim suffixOverrides=",">
+            <if test="code != null and code!=''">
+                `code` = #{code},
+            </if>
+            <if test="createTime != null and createTime!=''">
+                `create_time` = #{createTime},
+            </if>
+            <if test="changeType != null">
+                `change_type` = #{changeType},
+            </if>
+            <if test="changeAmount != null">
+                `change_amount` = #{changeAmount},
+            </if>
+            <if test="changeAfterAmount != null">
+                `change_after_amount` = #{changeAfterAmount},
+            </if>
+            <if test="remark != null and remark!=''">
+                `remark` = #{remark},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+
+    <select id="queryZcCommissionRecord" resultMap="ZcCommissionRecordMap">
+        select
+        <include refid="allResult"/>
+        from  `zc_commission_record`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="createTime != null and createTime!=''">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="changeType != null">
+                `change_type` = #{changeType} and
+            </if>
+            <if test="changeAmount != null">
+                `change_amount` = #{changeAmount} and
+            </if>
+            <if test="changeAfterAmount != null">
+                `change_after_amount` = #{changeAfterAmount} and
+            </if>
+            <if test="remark != null and remark!=''">
+                `remark` = #{remark} and
+            </if>
+        </trim>
+    </select>
+
 
 
 </mapper>

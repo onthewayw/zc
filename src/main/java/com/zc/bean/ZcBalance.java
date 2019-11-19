@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
+
 /**
 *
 *  @author author
@@ -26,6 +24,11 @@ public class ZcBalance implements Serializable {
     * isNullAble:0
     */
     private Long id;
+
+    /**
+     * 用户Id
+     * */
+    private Long userId;
 
     /**
     * 
@@ -55,7 +58,7 @@ public class ZcBalance implements Serializable {
     * 创建记录时间
     * isNullAble:1
     */
-    private java.time.LocalDateTime createTime;
+    private Date createTime;
 
     /**
     * 备注

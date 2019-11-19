@@ -2,13 +2,17 @@ package com.zc.mapper;
 
 import java.util.List;
 
-import com.zc.mapper.base.ZcApiBaseMapper;
-import org.apache.ibatis.annotations.Param;
+import com.zc.bean.ZcApi;
 
 /**
-*  @author author
-*/
-public interface ZcApiMapper extends ZcApiBaseMapper {
+ * @author author
+ */
+public interface ZcApiMapper {
 
+    int insertZcApi(ZcApi object);
+
+    int updateZcApi(ZcApi object);
+
+    List<ZcApi> queryZcApi(ZcApi object);
 
 }

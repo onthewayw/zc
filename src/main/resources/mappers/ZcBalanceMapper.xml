@@ -3,5 +3,154 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.ZcBalanceMapper">
 
+    <resultMap type="com.zc.bean.ZcBalance" id="ZcBalanceMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="code" column="code"/>
+        <result property="type" column="type"/>
+        <result property="amount" column="amount"/>
+        <result property="balanceAfterChange" column="balance_after_change"/>
+        <result property="createTime" column="create_time"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `user_id`,
+            `code`,
+            `type`,
+            `amount`,
+            `balance_after_change`,
+            `create_time`,
+            `remarks`,
+        </trim>
+    </sql>
+
+    <insert id="insertZcBalance" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `zc_balance`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="userId!=null">
+                `user_id`,
+            </if>
+            <if test="code!=null">
+                `code`,
+            </if>
+            <if test="type!=null">
+                `type`,
+            </if>
+            <if test="amount!=null">
+                `amount`,
+            </if>
+            <if test="balanceAfterChange!=null">
+                `balance_after_change`,
+            </if>
+            <if test="createTime!=null">
+                `create_time`,
+            </if>
+            <if test="remarks!=null">
+                `remarks`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="code!=null">
+                #{code},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+            <if test="amount!=null">
+                #{amount},
+            </if>
+            <if test="balanceAfterChange!=null">
+                #{balanceAfterChange},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="remarks!=null">
+                #{remarks},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateZcBalance">
+        UPDATE `zc_balance`
+        SET
+        <trim suffixOverrides=",">
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId},
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="amount != null">
+                `amount` = #{amount},
+            </if>
+            <if test="balanceAfterChange != null">
+                `balance_after_change` = #{balanceAfterChange},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="remarks != null and remarks!=''">
+                `remarks` = #{remarks},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+    <select id="queryZcBalance" resultMap="ZcBalanceMap">
+        select
+        <include refid="allResult"></include>
+        from `zc_balance`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="amount != null">
+                `amount` = #{amount} and
+            </if>
+            <if test="balanceAfterChange != null">
+                `balance_after_change` = #{balanceAfterChange} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="remarks != null and remarks!=''">
+                `remarks` = #{remarks} and
+            </if>
+        </trim>
+    </select>
 
 </mapper>

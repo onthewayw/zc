@@ -12,17 +12,17 @@
         <result property="show" column="show"/>
         <result property="parentId" column="parent_id"/>
     </resultMap>
-    <sql id="baseResult">
-            <trim suffixOverrides=",">
-                `id`,
-                `login_account`,
-                `password`,
-                `user_name`,
-                `phone_num`,
-                `mail_address`,
-                `show`,
-                `parent_id`,
-            </trim>
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `login_account`,
+            `password`,
+            `user_name`,
+            `phone_num`,
+            `mail_address`,
+            `show`,
+            `parent_id`,
+        </trim>
     </sql>
     <sql id="where_condition">
         <if test="id != null">
@@ -52,13 +52,13 @@
     </sql>
     <select id="queryById" resultMap="ZcUserMap">
         select
-        <include refid="baseResult"></include>
+        <include refid="allResult"></include>
         from `zc_user`
         where id=#{id}
     </select>
     <select id="selectOne" resultMap="ZcUserMap">
         select
-        <include refid="baseResult"></include>
+        <include refid="allResult"></include>
         from `zc_user`
         where 1=1
         <include refid="where_condition"/>
@@ -66,9 +66,140 @@
     </select>
     <select id="queryByList" resultMap="ZcUserMap">
         select
-        <include refid="baseResult"></include>
+        <include refid="allResult"></include>
         from `zc_user`
         where 1=1
         <include refid="where_condition"/>
     </select>
+
+
+
+
+    <insert id="insertZcUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `zc_user`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="loginAccount!=null">
+                `login_account`,
+            </if>
+            <if test="password!=null">
+                `password`,
+            </if>
+            <if test="userName!=null">
+                `user_name`,
+            </if>
+            <if test="phoneNum!=null">
+                `phone_num`,
+            </if>
+            <if test="mailAddress!=null">
+                `mail_address`,
+            </if>
+            <if test="show!=null">
+                `show`,
+            </if>
+            <if test="parentId!=null">
+                `parent_id`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="loginAccount!=null">
+                #{loginAccount},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="userName!=null">
+                #{userName},
+            </if>
+            <if test="phoneNum!=null">
+                #{phoneNum},
+            </if>
+            <if test="mailAddress!=null">
+                #{mailAddress},
+            </if>
+            <if test="show!=null">
+                #{show},
+            </if>
+            <if test="parentId!=null">
+                #{parentId},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateZcUser">
+        UPDATE `zc_user`
+        SET
+        <trim suffixOverrides=",">
+            <if test="loginAccount != null and loginAccount!=''">
+                `login_account` = #{loginAccount},
+            </if>
+            <if test="password != null and password!=''">
+                `password` = #{password},
+            </if>
+            <if test="userName != null and userName!=''">
+                `user_name` = #{userName},
+            </if>
+            <if test="phoneNum != null and phoneNum!=''">
+                `phone_num` = #{phoneNum},
+            </if>
+            <if test="mailAddress != null and mailAddress!=''">
+                `mail_address` = #{mailAddress},
+            </if>
+            <if test="show != null">
+                `show` = #{show},
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+    <select id="queryZcUser" resultMap="ZcUserMap">
+        select
+        <include refid="allResult"/>
+        from `zc_user`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="loginAccount != null and loginAccount!=''">
+                `login_account` = #{loginAccount} and
+            </if>
+            <if test="password != null and password!=''">
+                `password` = #{password} and
+            </if>
+            <if test="userName != null and userName!=''">
+                `user_name` = #{userName} and
+            </if>
+            <if test="phoneNum != null and phoneNum!=''">
+                `phone_num` = #{phoneNum} and
+            </if>
+            <if test="mailAddress != null and mailAddress!=''">
+                `mail_address` = #{mailAddress} and
+            </if>
+            <if test="show != null">
+                `show` = #{show} and
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId} and
+            </if>
+        </trim>
+    </select>
+
 </mapper>
