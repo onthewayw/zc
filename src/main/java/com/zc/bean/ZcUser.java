@@ -71,4 +71,8 @@ public class ZcUser implements Serializable {
     */
     private Long parentId;
 
+    /**
+     * 账户余额  默认为0 展示需除100
+     * */
+    private Long accountBalance;
 }
