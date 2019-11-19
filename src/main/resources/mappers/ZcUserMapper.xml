@@ -11,6 +11,7 @@
         <result property="mailAddress" column="mail_address"/>
         <result property="show" column="show"/>
         <result property="parentId" column="parent_id"/>
+        <result property="accountBalance" column="account_balance"/>
     </resultMap>
     <sql id="allResult">
         <trim suffixOverrides=",">
@@ -22,6 +23,7 @@
             `mail_address`,
             `show`,
             `parent_id`,
+            `account_balance`,
         </trim>
     </sql>
     <sql id="where_condition">
@@ -48,6 +50,9 @@
         </if>
         <if test="parentId != null">
             and `parent_id` = #{parentId}
+        </if>
+        <if test="accountBalance != null">
+            and `account_balance` = #{accountBalance}
         </if>
     </sql>
     <select id="queryById" resultMap="ZcUserMap">
@@ -103,6 +108,9 @@
             <if test="parentId!=null">
                 `parent_id`,
             </if>
+            <if test="accountBalance!=null">
+                `account_balance`,
+            </if>
         </trim>
         )
         VALUES
@@ -131,6 +139,9 @@
             </if>
             <if test="parentId!=null">
                 #{parentId},
+            </if>
+            <if test="accountBalance!=null">
+                #{accountBalance},
             </if>
         </trim>
         )
@@ -161,6 +172,9 @@
             </if>
             <if test="parentId != null">
                 `parent_id` = #{parentId},
+            </if>
+            <if test="accountBalance != null">
+                `account_balance` = #{accountBalance},
             </if>
         </trim>
         WHERE
@@ -198,6 +212,9 @@
             </if>
             <if test="parentId != null">
                 `parent_id` = #{parentId} and
+            </if>
+            <if test="accountBalance != null">
+                `account_balance` = #{accountBalance} and
             </if>
         </trim>
     </select>
