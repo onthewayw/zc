@@ -14,7 +14,6 @@ public interface ZcUserService {
 
     List<ZcUser> queryZcUser(ZcUser object);
 
-    ZcUser queryZcUserLimit1(ZcUser object);
 
     ZcUser queryById(Long id);
 

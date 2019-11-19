@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
+
 /**
 *
 *  @author author
@@ -37,7 +35,7 @@ public class ZcApi implements Serializable {
     * 有效期
     * isNullAble:1
     */
-    private java.time.LocalDateTime endTime;
+    private Date endTime;
 
     /**
     * 成本 价格 （用的话除100）
