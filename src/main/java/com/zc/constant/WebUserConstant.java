@@ -8,4 +8,6 @@ public class WebUserConstant {
 
     //token  header key
     public static final String TOKENAUTHORIZATION = "Authorization";
+
+    //status状态错误
 }

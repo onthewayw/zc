@@ -2,13 +2,16 @@ package com.zc.mapper;
 
 import java.util.List;
 
-import com.zc.mapper.base.ZcBalanceBaseMapper;
-import org.apache.ibatis.annotations.Param;
+import com.zc.bean.ZcBalance;
 
 /**
 *  @author author
 */
-public interface ZcBalanceMapper extends ZcBalanceBaseMapper {
+public interface ZcBalanceMapper {
 
+    int insertZcBalance(ZcBalance object);
 
+    int updateZcBalance(ZcBalance object);
+
+    List<ZcBalance> queryZcBalance(ZcBalance object);
 }

@@ -2,6 +2,155 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.ZcCardManageMapper">
+    <resultMap type="com.zc.bean.ZcCardManage" id="ZcCardManageMap">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="code" column="code"/>
+        <result property="iccid" column="iccid"/>
+        <result property="belongUser" column="belong_user"/>
+        <result property="status" column="status"/>
+        <result property="apiName" column="api_name"/>
+        <result property="apiId" column="api_id"/>
+    </resultMap>
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `type`,
+            `code`,
+            `iccid`,
+            `belong_user`,
+            `status`,
+            `api_name`,
+            `api_id`,
+        </trim>
+    </sql>
 
+
+    <insert id="insertZcCardManage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `zc_card_manage`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="type!=null">
+                `type`,
+            </if>
+            <if test="code!=null">
+                `code`,
+            </if>
+            <if test="iccid!=null">
+                `iccid`,
+            </if>
+            <if test="belongUser!=null">
+                `belong_user`,
+            </if>
+            <if test="status!=null">
+                `status`,
+            </if>
+            <if test="apiName!=null">
+                `api_name`,
+            </if>
+            <if test="apiId!=null">
+                `api_id`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+            <if test="code!=null">
+                #{code},
+            </if>
+            <if test="iccid!=null">
+                #{iccid},
+            </if>
+            <if test="belongUser!=null">
+                #{belongUser},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="apiName!=null">
+                #{apiName},
+            </if>
+            <if test="apiId!=null">
+                #{apiId},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateZcCardManage">
+        UPDATE `zc_card_manage`
+        SET
+        <trim suffixOverrides=",">
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code},
+            </if>
+            <if test="iccid != null and iccid!=''">
+                `iccid` = #{iccid},
+            </if>
+            <if test="belongUser != null and belongUser!=''">
+                `belong_user` = #{belongUser},
+            </if>
+            <if test="status != null">
+                `status` = #{status},
+            </if>
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName},
+            </if>
+            <if test="apiId != null">
+                `api_id` = #{apiId},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+    <select id="queryZcCardManage" resultMap="ZcCardManageMap">
+        select
+        <include refid="allResult"></include>
+        from `zc_card_manage`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="iccid != null and iccid!=''">
+                `iccid` = #{iccid} and
+            </if>
+            <if test="belongUser != null and belongUser!=''">
+                `belong_user` = #{belongUser} and
+            </if>
+            <if test="status != null">
+                `status` = #{status} and
+            </if>
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName} and
+            </if>
+            <if test="apiId != null">
+                `api_id` = #{apiId} and
+            </if>
+        </trim>
+    </select>
 
 </mapper>

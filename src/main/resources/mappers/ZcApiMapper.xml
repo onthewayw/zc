@@ -2,6 +2,128 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.mapper.ZcApiMapper">
+    <resultMap type="com.zc.bean.ZcApi" id="ZcApiMap">
+        <result property="id" column="id"/>
+        <result property="apiName" column="api_name"/>
+        <result property="endTime" column="end_time"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="agentCostPrice" column="agent_cost_price"/>
+        <result property="terminalPrice" column="terminal_price"/>
+    </resultMap>
 
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `api_name`,
+            `end_time`,
+            `cost_price`,
+            `agent_cost_price`,
+            `terminal_price`,
+        </trim>
+    </sql>
+
+
+    <insert id="insertZcApi" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `zc_api`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="apiName!=null">
+                `api_name`,
+            </if>
+            <if test="endTime!=null">
+                `end_time`,
+            </if>
+            <if test="costPrice!=null">
+                `cost_price`,
+            </if>
+            <if test="agentCostPrice!=null">
+                `agent_cost_price`,
+            </if>
+            <if test="terminalPrice!=null">
+                `terminal_price`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="apiName!=null">
+                #{apiName},
+            </if>
+            <if test="endTime!=null">
+                #{endTime},
+            </if>
+            <if test="costPrice!=null">
+                #{costPrice},
+            </if>
+            <if test="agentCostPrice!=null">
+                #{agentCostPrice},
+            </if>
+            <if test="terminalPrice!=null">
+                #{terminalPrice},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateZcApi">
+        UPDATE `zc_api`
+        SET
+        <trim suffixOverrides=",">
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName},
+            </if>
+            <if test="endTime != null">
+                `end_time` = #{endTime},
+            </if>
+            <if test="costPrice != null">
+                `cost_price` = #{costPrice},
+            </if>
+            <if test="agentCostPrice != null">
+                `agent_cost_price` = #{agentCostPrice},
+            </if>
+            <if test="terminalPrice != null">
+                `terminal_price` = #{terminalPrice},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+    <select id="queryZcApi" resultMap="ZcApiMap">
+        select
+        <include refid="allResult"/>
+        from `zc_api`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName} and
+            </if>
+            <if test="endTime != null">
+                `end_time` = #{endTime} and
+            </if>
+            <if test="costPrice != null">
+                `cost_price` = #{costPrice} and
+            </if>
+            <if test="agentCostPrice != null">
+                `agent_cost_price` = #{agentCostPrice} and
+            </if>
+            <if test="terminalPrice != null">
+                `terminal_price` = #{terminalPrice} and
+            </if>
+        </trim>
+    </select>
 
 </mapper>
