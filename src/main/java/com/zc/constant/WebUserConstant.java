@@ -10,4 +10,7 @@ public class WebUserConstant {
     public static final String TOKENAUTHORIZATION = "Authorization";
 
     //status状态错误
+    public static final Integer STATUSERROR=500;
+    //status状态码正确
+    public static final Integer STATUSSUCCESS=200;
 }

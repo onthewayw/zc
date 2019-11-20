@@ -36,7 +36,7 @@ public class BalanceController {
     @GetMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size,ZcBalance balance) {
         Map<String, Object> returnObject = new HashMap<>();
-        returnObject.put("code",500);
+        returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
@@ -44,7 +44,7 @@ public class BalanceController {
                 balance.setUserId(zcUser.getId());
                 PageInfo<ZcBalance> pageInfo = zcBalanceService.queryPageByUserId(page, size, balance);
                 returnObject.put("data",pageInfo);
-                returnObject.put("code",200);
+                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
             e.printStackTrace();

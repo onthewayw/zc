@@ -28,6 +28,12 @@ public class ZcCardManage implements Serializable {
     private Long id;
 
     /**
+     * 用户Id
+     * */
+    private Long userId;
+
+
+    /**
     * 1联通卡 2移动卡 3 电信卡
     * isNullAble:1
     */
