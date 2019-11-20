@@ -1,5 +1,7 @@
 package com.zc.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcUser;
 import com.zc.constant.SecretConstant;
 import com.zc.constant.StatusEnum;
@@ -28,7 +30,7 @@ public class ZcUserServiceImpl implements ZcUserService {
 
     @Override
     public Long insertZcUser(ZcUser object) {
-         zcUserMapper.insertZcUser(object);
+        zcUserMapper.insertZcUser(object);
         return object.getId();
     }
 
@@ -94,5 +96,15 @@ public class ZcUserServiceImpl implements ZcUserService {
             e.printStackTrace();
         }
         return returnMap;
+    }
+
+    @Override
+    public PageInfo<ZcUser> queryByPage(Integer page, Integer pageSize, ZcUser zcUser) {
+        //开启分页查询，写在查询语句上面
+        //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
+        PageHelper.startPage(page, pageSize);
+        List<ZcUser> zcUsers = zcUserMapper.queryZcUser(zcUser);
+        PageInfo<ZcUser> pageInfo = new PageInfo<>(zcUsers);
+        return pageInfo;
     }
 }

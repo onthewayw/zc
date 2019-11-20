@@ -1,5 +1,8 @@
 package com.zc.service;
 
+import com.github.pagehelper.PageInfo;
+import com.zc.bean.ZcApi;
+import com.zc.bean.ZcCashOutRecord;
 import com.zc.bean.ZcCommissionRecord;
 
 import java.util.List;
@@ -10,4 +13,9 @@ public interface ZcCommissionRecordService {
     int updateZcCommissionRecord(ZcCommissionRecord object);
 
     List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord object);
+
+    /**
+     * 分页查询
+     * */
+    PageInfo<ZcCommissionRecord> queryByPage(Integer page, Integer pageSize, ZcCommissionRecord zcCommissionRecord);
 }

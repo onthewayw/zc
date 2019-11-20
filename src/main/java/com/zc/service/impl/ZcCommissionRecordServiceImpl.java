@@ -1,6 +1,8 @@
 package com.zc.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcCommissionRecord;
 import com.zc.mapper.ZcCommissionRecordMapper;
 import com.zc.service.ZcCommissionRecordService;
@@ -28,6 +30,16 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
     @Override
     public List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord object) {
         return zcCommissionRecordMapper.queryZcCommissionRecord(object);
+    }
+
+    @Override
+    public PageInfo<ZcCommissionRecord> queryByPage(Integer page, Integer pageSize, ZcCommissionRecord zcCommissionRecord) {
+        //开启分页查询，写在查询语句上面
+        //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
+        PageHelper.startPage(page, pageSize);
+        List<ZcCommissionRecord> zcCommissionRecords = zcCommissionRecordMapper.queryZcCommissionRecord(zcCommissionRecord);
+        PageInfo<ZcCommissionRecord> pageInfo = new PageInfo<>(zcCommissionRecords);
+        return pageInfo;
     }
 
 }

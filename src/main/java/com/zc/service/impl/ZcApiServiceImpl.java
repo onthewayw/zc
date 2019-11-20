@@ -1,5 +1,7 @@
 package com.zc.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcApi;
 import com.zc.mapper.ZcApiMapper;
 import com.zc.service.ZcApiService;
@@ -27,5 +29,15 @@ public class ZcApiServiceImpl implements ZcApiService {
     @Override
     public List<ZcApi> queryZcApi(ZcApi api) {
         return zcApiMapper.queryZcApi(api);
+    }
+
+    @Override
+    public PageInfo<ZcApi> queryByPage(Integer page, Integer pageSize, ZcApi zcApi) {
+        //开启分页查询，写在查询语句上面
+        //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
+        PageHelper.startPage(page, pageSize);
+        List<ZcApi> zcApis = zcApiMapper.queryZcApi(zcApi);
+        PageInfo<ZcApi> zcApiPageInfo = new PageInfo<>(zcApis);
+        return zcApiPageInfo;
     }
 }
