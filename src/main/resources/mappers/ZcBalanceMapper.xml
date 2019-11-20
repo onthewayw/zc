@@ -27,6 +27,9 @@
     </sql>
 
     <insert id="insertZcBalance" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO `zc_balance`
         (
         <trim suffixOverrides=",">

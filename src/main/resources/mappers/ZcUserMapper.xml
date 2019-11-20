@@ -81,6 +81,9 @@
 
 
     <insert id="insertZcUser" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO `zc_user`
         (
         <trim suffixOverrides=",">

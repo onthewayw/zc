@@ -28,6 +28,9 @@
 
 
     <insert id="insertZcCashOutRecord"  useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO `zc_cash_out_record`
         (
         <trim suffixOverrides=",">

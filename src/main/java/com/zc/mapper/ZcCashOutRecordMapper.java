@@ -9,7 +9,7 @@ import com.zc.bean.ZcCashOutRecord;
  */
 public interface ZcCashOutRecordMapper {
 
-    int insertZcCashOutRecord(ZcCashOutRecord object);
+    Long insertZcCashOutRecord(ZcCashOutRecord object);
 
     int updateZcCashOutRecord(ZcCashOutRecord object);
 

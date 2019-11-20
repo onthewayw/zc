@@ -8,7 +8,7 @@ import com.zc.bean.ZcUser;
  * @author author
  */
 public interface ZcUserMapper{
-    int insertZcUser(ZcUser object);
+    Long insertZcUser(ZcUser object);
 
     int updateZcUser(ZcUser object);
 

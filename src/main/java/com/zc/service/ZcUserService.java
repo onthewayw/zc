@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ZcUserService {
-    int insertZcUser(ZcUser object);
+    Long insertZcUser(ZcUser object);
 
     int updateZcUser(ZcUser object);
 

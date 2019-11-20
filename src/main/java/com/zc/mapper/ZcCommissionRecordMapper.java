@@ -9,7 +9,7 @@ import com.zc.bean.ZcCommissionRecord;
  */
 public interface ZcCommissionRecordMapper {
 
-    int insertZcCommissionRecord(ZcCommissionRecord object);
+    Long insertZcCommissionRecord(ZcCommissionRecord object);
 
     int updateZcCommissionRecord(ZcCommissionRecord object);
 

@@ -27,8 +27,9 @@ public class ZcUserServiceImpl implements ZcUserService {
     private RedisTokenOper redisTokenOper;
 
     @Override
-    public int insertZcUser(ZcUser object) {
-        return zcUserMapper.insertZcUser(object);
+    public Long insertZcUser(ZcUser object) {
+         zcUserMapper.insertZcUser(object);
+        return object.getId();
     }
 
     @Override

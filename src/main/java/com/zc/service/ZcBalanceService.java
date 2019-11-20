@@ -6,7 +6,7 @@ import com.zc.bean.ZcBalance;
 import java.util.List;
 
 public interface ZcBalanceService {
-    int insertZcBalance(ZcBalance object);
+    Long insertZcBalance(ZcBalance object);
 
     int updateZcBalance(ZcBalance object);
 

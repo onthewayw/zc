@@ -8,7 +8,7 @@ import com.zc.bean.ZcCardManage;
  */
 public interface ZcCardManageMapper {
 
-    int insertZcCardManage(ZcCardManage object);
+    Long insertZcCardManage(ZcCardManage object);
 
     int updateZcCardManage(ZcCardManage object);
 

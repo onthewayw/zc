@@ -14,8 +14,9 @@ public class ZcApiServiceImpl implements ZcApiService {
     private ZcApiMapper zcApiMapper;
 
     @Override
-    public int insertZcApi(ZcApi api) {
-        return zcApiMapper.insertZcApi(api);
+    public Long insertZcApi(ZcApi api) {
+        zcApiMapper.insertZcApi(api);
+        return api.getId();
     }
 
     @Override

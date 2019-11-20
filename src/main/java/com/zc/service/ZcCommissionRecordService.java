@@ -5,7 +5,7 @@ import com.zc.bean.ZcCommissionRecord;
 import java.util.List;
 
 public interface ZcCommissionRecordService {
-    int insertZcCommissionRecord(ZcCommissionRecord object);
+    Long insertZcCommissionRecord(ZcCommissionRecord object);
 
     int updateZcCommissionRecord(ZcCommissionRecord object);
 

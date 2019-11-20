@@ -17,8 +17,9 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
     private ZcCardManageMapper zcCardManageMapper;
 
     @Override
-    public int insertZcCardManage(ZcCardManage object) {
-        return zcCardManageMapper.insertZcCardManage(object);
+    public Long insertZcCardManage(ZcCardManage object) {
+        zcCardManageMapper.insertZcCardManage(object);
+        return object.getId();
     }
 
     @Override

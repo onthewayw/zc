@@ -4,6 +4,7 @@
 <mapper namespace="com.zc.mapper.ZcCardManageMapper">
     <resultMap type="com.zc.bean.ZcCardManage" id="ZcCardManageMap">
         <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
         <result property="type" column="type"/>
         <result property="code" column="code"/>
         <result property="iccid" column="iccid"/>
@@ -15,6 +16,7 @@
     <sql id="allResult">
         <trim suffixOverrides=",">
             `id`,
+            `user_id`,
             `type`,
             `code`,
             `iccid`,
@@ -27,11 +29,17 @@
 
 
     <insert id="insertZcCardManage" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO `zc_card_manage`
         (
         <trim suffixOverrides=",">
             <if test="id!=null">
                 `id`,
+            </if>
+            <if test="userId!=null">
+                `user_id`,
             </if>
             <if test="type!=null">
                 `type`,
@@ -61,6 +69,9 @@
         <trim suffixOverrides=",">
             <if test="id!=null">
                 #{id},
+            </if>
+            <if test="userId!=null">
+                #{userId},
             </if>
             <if test="type!=null">
                 #{type},
@@ -92,6 +103,9 @@
         UPDATE `zc_card_manage`
         SET
         <trim suffixOverrides=",">
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId},
+            </if>
             <if test="type != null">
                 `type` = #{type},
             </if>
@@ -128,6 +142,9 @@
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
             </if>
             <if test="type != null">
                 `type` = #{type} and

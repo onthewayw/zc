@@ -9,7 +9,7 @@ import com.zc.bean.ZcApi;
  */
 public interface ZcApiMapper {
 
-    int insertZcApi(ZcApi object);
+    Long insertZcApi(ZcApi object);
 
     int updateZcApi(ZcApi object);
 

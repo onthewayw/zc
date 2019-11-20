@@ -15,8 +15,9 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
     private ZcCommissionRecordMapper zcCommissionRecordMapper;
 
     @Override
-    public int insertZcCommissionRecord(ZcCommissionRecord object) {
-        return zcCommissionRecordMapper.insertZcCommissionRecord(object);
+    public Long insertZcCommissionRecord(ZcCommissionRecord object) {
+        zcCommissionRecordMapper.insertZcCommissionRecord(object);
+        return object.getId();
     }
 
     @Override

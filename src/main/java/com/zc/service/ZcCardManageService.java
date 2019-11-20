@@ -6,7 +6,7 @@ import com.zc.bean.ZcCardManage;
 import java.util.List;
 
 public interface ZcCardManageService {
-    int insertZcCardManage(ZcCardManage object);
+    Long insertZcCardManage(ZcCardManage object);
 
     int updateZcCardManage(ZcCardManage object);
 

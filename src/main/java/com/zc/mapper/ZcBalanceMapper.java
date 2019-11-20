@@ -9,7 +9,7 @@ import com.zc.bean.ZcBalance;
 */
 public interface ZcBalanceMapper {
 
-    int insertZcBalance(ZcBalance object);
+    Long insertZcBalance(ZcBalance object);
 
     int updateZcBalance(ZcBalance object);
 

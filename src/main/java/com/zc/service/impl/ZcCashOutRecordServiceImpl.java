@@ -14,8 +14,9 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
     private ZcCashOutRecordMapper zcCashOutRecordMapper;
 
     @Override
-    public int insertZcCashOutRecord(ZcCashOutRecord object) {
-        return zcCashOutRecordMapper.insertZcCashOutRecord(object);
+    public Long insertZcCashOutRecord(ZcCashOutRecord object) {
+        zcCashOutRecordMapper.insertZcCashOutRecord(object);
+        return object.getId();
     }
 
     @Override
