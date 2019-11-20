@@ -17,7 +17,7 @@ public class ZcBalanceServiceImpl implements ZcBalanceService {
 
     @Override
     public Long insertZcBalance(ZcBalance object) {
-         zcBalanceMapper.insertZcBalance(object);
+        zcBalanceMapper.insertZcBalance(object);
         return object.getId();
     }
 

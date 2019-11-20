@@ -70,4 +70,27 @@ public class CardManageController {
         }
         return returnObject;
     }
+
+    /**
+     * 更新信息
+     */
+    @PostMapping("/update")
+    public Map<String, Object> updateRecord(ZcCardManage zcCardManage) {
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        try {
+            String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+            ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+            if (null != zcUser) {
+                int i = zcCardManageService.updateZcCardManage(zcCardManage);
+                if (i != 0) {
+                    returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnObject;
+
+    }
 }

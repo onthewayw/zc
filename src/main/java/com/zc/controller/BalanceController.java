@@ -9,10 +9,7 @@ import com.zc.utils.RedisTokenOper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -47,6 +44,29 @@ public class BalanceController {
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnObject;
+    }
+    /**
+     * 新增记录
+     */
+    @PostMapping("/add")
+    public Map<String, Object> addRecord(ZcBalance zcBalance) {
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        try {
+            String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+            ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+            if (null != zcUser) {
+                zcBalance.setUserId(zcUser.getId());
+                Long id = zcBalanceService.insertZcBalance(zcBalance);
+                if (null != id) {
+                    returnObject.put("id", id);
+                    returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                }
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
         return returnObject;
