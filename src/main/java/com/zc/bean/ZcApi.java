@@ -26,6 +26,11 @@ public class ZcApi implements Serializable {
     private Long id;
 
     /**
+     * 用户Id
+     * */
+    private Long userId;
+
+    /**
     * api名称
     * isNullAble:1
     */
