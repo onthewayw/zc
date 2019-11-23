@@ -20,14 +20,14 @@ public class LoginController {
     /**
      * 根据用户名和密码查询用户
      *
-     * @param phonenum
+     * @param phoneNum
      * @param password
      * @return
      */
     @GetMapping("/login")
-    public Map<String, Object> login(@RequestParam("phonenum") String phonenum, @RequestParam("password") String password, HttpServletRequest request) {
+    public Map<String, Object> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("password") String password, HttpServletRequest request) {
 
         //1 根据手机号查询
-        return zcUserService.login(phonenum, password,request);
+        return zcUserService.login(phoneNum, password,request);
     }
 }
