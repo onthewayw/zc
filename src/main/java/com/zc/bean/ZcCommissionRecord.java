@@ -28,6 +28,11 @@ public class ZcCommissionRecord implements Serializable {
     private Long id;
 
     /**
+     * 用户Id
+     * */
+    private Long userId;
+
+    /**
     * code
     * isNullAble:1
     */

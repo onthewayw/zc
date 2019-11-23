@@ -5,6 +5,7 @@
 
     <resultMap type="com.zc.bean.ZcCashOutRecord" id="ZcCashOutRecordMap">
         <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
         <result property="code" column="code"/>
         <result property="cashOutAmount" column="cash_out_amount"/>
         <result property="createTime" column="create_time"/>
@@ -16,6 +17,7 @@
     <sql id="allResult">
         <trim suffixOverrides=",">
             `id`,
+            `user_id`,
             `code`,
             `cash_out_amount`,
             `create_time`,
@@ -36,6 +38,9 @@
         <trim suffixOverrides=",">
             <if test="id!=null">
                 `id`,
+            </if>
+            <if test="userId!=null">
+                `user_id`,
             </if>
             <if test="code!=null">
                 `code`,
@@ -65,6 +70,9 @@
         <trim suffixOverrides=",">
             <if test="id!=null">
                 #{id},
+            </if>
+            <if test="userId!=null">
+                #{userId},
             </if>
             <if test="code!=null">
                 #{code},
@@ -98,6 +106,9 @@
         UPDATE `zc_cash_out_record`
         SET
         <trim suffixOverrides=",">
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId},
+            </if>
             <if test="code != null and code!=''">
                 `code` = #{code},
             </if>
@@ -135,6 +146,9 @@
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
             </if>
             <if test="code != null and code!=''">
                 `code` = #{code} and
