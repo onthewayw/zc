@@ -1,5 +1,6 @@
 package com.zc.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,6 @@ public class ZcCardManage implements Serializable {
      */
     private Long userId;
 
-
     /**
      * 1联通卡 2移动卡 3 电信卡
      * isNullAble:1
@@ -49,6 +49,11 @@ public class ZcCardManage implements Serializable {
      * isNullAble:1
      */
     private String iccid;
+
+    /**
+     * 套餐余量
+     * */
+    private Long allowance;
 
     /**
      * 所属代理
@@ -74,14 +79,21 @@ public class ZcCardManage implements Serializable {
      */
     private Long apiId;
 
-    //===========辅助字段=========================
+    //===========辅助查询字段 返回不需要展示=========================
     /**
      * 开始iccid
      */
+    @JsonIgnore
     private String beginIccid;
 
     /**
      * 结束iccid
      */
+    @JsonIgnore
     private String endIccid;
+    /**
+     * 小于套餐余量
+     * */
+    @JsonIgnore
+    private Long lessAllowance;
 }

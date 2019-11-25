@@ -5,6 +5,7 @@
     <resultMap type="com.zc.bean.ZcCardManage" id="ZcCardManageMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
+        <result property="allowance" column="allowance"/>
         <result property="type" column="type"/>
         <result property="code" column="code"/>
         <result property="iccid" column="iccid"/>
@@ -17,6 +18,7 @@
         <trim suffixOverrides=",">
             `id`,
             `user_id`,
+            `allowance`,
             `type`,
             `code`,
             `iccid`,
@@ -40,6 +42,9 @@
             </if>
             <if test="userId!=null">
                 `user_id`,
+            </if>
+            <if test="allowance!=null">
+                `allowance`,
             </if>
             <if test="type!=null">
                 `type`,
@@ -73,6 +78,9 @@
             <if test="userId!=null">
                 #{userId},
             </if>
+            <if test="allowance!=null">
+                #{allowance},
+            </if>
             <if test="type!=null">
                 #{type},
             </if>
@@ -105,6 +113,9 @@
         <trim suffixOverrides=",">
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId},
+            </if>
+            <if test="allowance != null and allowance!=''">
+                `allowance` = #{allowance},
             </if>
             <if test="type != null">
                 `type` = #{type},
@@ -146,6 +157,12 @@
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId} and
             </if>
+            <if test="allowance != null and allowance!=''">
+                `allowance` = #{allowance} and
+            </if>
+            <if test="lessAllowance != null and lessAllowance!=''">
+                `allowance` &lt;= #{lessAllowance} and
+            </if>
             <if test="type != null">
                 `type` = #{type} and
             </if>
@@ -175,5 +192,11 @@
             </if>
         </trim>
     </select>
-
+    <select id="queryByIccid" resultMap="ZcCardManageMap">
+    select
+    <include refid="allResult"></include>
+    from `zc_card_manage`
+    where `iccid` = #{iccid}
+    limit 0,1
+    </select>
 </mapper>

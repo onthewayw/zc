@@ -6,6 +6,7 @@ import com.zc.bean.ZcUser;
 import com.zc.constant.WebUserConstant;
 import com.zc.service.ZcCardManageService;
 import com.zc.utils.RedisTokenOper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,6 +92,24 @@ public class CardManageController {
             e.printStackTrace();
         }
         return returnObject;
+    }
 
+    /**
+     * 通过iccid 只有一条
+     * */
+    @GetMapping("/queryByIccid")
+    public Map<String,Object> queryByIccid(String iccid){
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        try {
+            if(!StringUtils.isEmpty(iccid)){
+                ZcCardManage zcCardManage = zcCardManageService.queryByIccid(iccid);
+                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                returnObject.put("data", zcCardManage);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnObject;
     }
 }

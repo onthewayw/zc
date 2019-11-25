@@ -13,4 +13,9 @@ public interface ZcCardManageService {
     List<ZcCardManage> queryZcCardManage(ZcCardManage object);
 
     PageInfo<ZcCardManage> queryByPage(Integer page, Integer pageSize,ZcCardManage zcCardManage);
+
+    /**
+     * 通过iccid
+     * */
+    ZcCardManage queryByIccid(String iccid);
 }

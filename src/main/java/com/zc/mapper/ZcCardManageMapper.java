@@ -13,4 +13,8 @@ public interface ZcCardManageMapper {
     int updateZcCardManage(ZcCardManage object);
 
     List<ZcCardManage> queryZcCardManage(ZcCardManage object);
+    /**
+     * 通过iccid
+     * */
+    ZcCardManage queryByIccid(String iccid);
 }

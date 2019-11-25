@@ -27,9 +27,9 @@ public class RedisTokenOper {
     private final String redisKeyPrefix = "zc:user:token:";
 
     /**
-     * 按秒来算  半个小时过期时间
+     * 按秒来算  半个小时过期时间 (测试，暂时设置为4个小时)
      */
-    private final long expireTime = 1800L;
+    private final long expireTime = 1800L * 8;
 
 
     public void setInfo(Object key, Object info) {

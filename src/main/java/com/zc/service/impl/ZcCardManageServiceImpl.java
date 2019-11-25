@@ -41,4 +41,9 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
         PageInfo<ZcCardManage> pageInfo = new PageInfo<>(zcCardManages);
         return pageInfo;
     }
+
+    @Override
+    public ZcCardManage queryByIccid(String iccid) {
+        return zcCardManageMapper.queryByIccid(iccid);
+    }
 }
