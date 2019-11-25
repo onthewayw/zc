@@ -58,4 +58,14 @@ public class ZcSetMeal implements Serializable {
     */
     private Long terminalPrice;
 
+    //========辅助字段===========
+    /**
+     * api name
+     * */
+    private String apiName;
+
+    /**
+     * 1联通卡 2移动卡 3 电信卡
+     * */
+    private int type;
 }

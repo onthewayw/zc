@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/caredManage")
+@RequestMapping("/cardManage")
 public class CardManageController {
     @Autowired(required = false)
     private ZcCardManageService zcCardManageService;
