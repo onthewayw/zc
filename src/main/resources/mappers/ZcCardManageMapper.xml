@@ -152,8 +152,11 @@
             <if test="code != null and code!=''">
                 `code` = #{code} and
             </if>
-            <if test="iccid != null and iccid!=''">
-                `iccid` = #{iccid} and
+            <if test="beginIccid != null and beginIccid!=''">
+                `iccid` &gt;= #{beginIccid} and
+            </if>
+            <if test="endIccid != null and endIccid!=''">
+                `iccid` &lt;= #{endIccid} and
             </if>
             <if test="belongUser != null and belongUser!=''">
                 `belong_user` = #{belongUser} and
