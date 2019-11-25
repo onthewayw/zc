@@ -10,6 +10,9 @@
         <result property="costPrice" column="cost_price"/>
         <result property="agentCostPrice" column="agent_cost_price"/>
         <result property="terminalPrice" column="terminal_price"/>
+        <result property="apiName" column="apiName"/>
+        <result property="type" column="type"/>
+
     </resultMap>
 
     <sql id="allResult">
@@ -117,7 +120,8 @@
     <select id="queryZcSetMeal" resultMap="ZcSetMealMap">
         select
         <include refid="allResult"/>
-        from `zc_set_meal`
+        from `zc_set_meal` s
+        left join `zc_api` a on a.id=s.api_id
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and

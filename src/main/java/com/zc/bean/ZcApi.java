@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+
+
+
+
 @AllArgsConstructor
 public class ZcApi {
     private Long id;
