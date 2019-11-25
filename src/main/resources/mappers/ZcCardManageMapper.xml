@@ -152,6 +152,9 @@
             <if test="code != null and code!=''">
                 `code` = #{code} and
             </if>
+            <if test="iccid != null and iccid!=''">
+                `iccid` = #{iccid} and
+            </if>
             <if test="beginIccid != null and beginIccid!=''">
                 `iccid` &gt;= #{beginIccid} and
             </if>
