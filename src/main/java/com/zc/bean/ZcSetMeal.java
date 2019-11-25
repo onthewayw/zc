@@ -13,7 +13,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZcApi implements Serializable {
+public class ZcSetMeal implements Serializable {
 
     private static final long serialVersionUID = 1573053152747L;
 
@@ -29,12 +29,10 @@ public class ZcApi implements Serializable {
      * 用户Id
      * */
     private Long userId;
-
     /**
-    * api名称
-    * isNullAble:1
-    */
-    private String apiName;
+     * api Id
+     * */
+    private Long apiId;
 
     /**
     * 有效期

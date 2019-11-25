@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zc.mapper.ZcApiMapper">
-    <resultMap type="com.zc.bean.ZcApi" id="ZcApiMap">
+<mapper namespace="com.zc.mapper.ZcSetMealMapper">
+    <resultMap type="com.zc.bean.ZcSetMeal" id="ZcSetMealMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
-        <result property="apiName" column="api_name"/>
+        <result property="apiId" column="user_id"/>
         <result property="endTime" column="end_time"/>
         <result property="costPrice" column="cost_price"/>
         <result property="agentCostPrice" column="agent_cost_price"/>
@@ -16,7 +16,7 @@
         <trim suffixOverrides=",">
             `id`,
             `user_id`,
-            `api_name`,
+            `api_id`,
             `end_time`,
             `cost_price`,
             `agent_cost_price`,
@@ -25,11 +25,11 @@
     </sql>
 
 
-    <insert id="insertZcApi" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertZcSetMeal" useGeneratedKeys="true" keyProperty="id">
         <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO `zc_api`
+        INSERT INTO `zc_set_meal`
         (
         <trim suffixOverrides=",">
             <if test="id!=null">
@@ -38,8 +38,8 @@
             <if test="userId!=null">
                 `user_id`,
             </if>
-            <if test="apiName!=null">
-                `api_name`,
+            <if test="apiId!=null">
+                `api_id`,
             </if>
             <if test="endTime!=null">
                 `end_time`,
@@ -64,8 +64,8 @@
             <if test="userId!=null">
                 #{userId},
             </if>
-            <if test="apiName!=null">
-                #{apiName},
+            <if test="apiId!=null">
+                #{apiId},
             </if>
             <if test="endTime!=null">
                 #{endTime},
@@ -84,15 +84,15 @@
     </insert>
 
 
-    <update id="updateZcApi">
-        UPDATE `zc_api`
+    <update id="updateZcSetMeal">
+        UPDATE `zc_set_meal`
         SET
         <trim suffixOverrides=",">
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId},
             </if>
-            <if test="apiName != null and apiName!=''">
-                `api_name` = #{apiName},
+            <if test="apiId != null and apiId!=''">
+                `api_id` = #{apiid},
             </if>
             <if test="endTime != null">
                 `end_time` = #{endTime},
@@ -114,10 +114,10 @@
     </update>
 
 
-    <select id="queryZcApi" resultMap="ZcApiMap">
+    <select id="queryZcSetMeal" resultMap="ZcSetMealMap">
         select
         <include refid="allResult"/>
-        from `zc_api`
+        from `zc_set_meal`
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
                 `id` = #{id} and
@@ -125,8 +125,8 @@
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId} and
             </if>
-            <if test="apiName != null and apiName!=''">
-                `api_name` = #{apiName} and
+            <if test="apiId != null and apiId!=''">
+                `api_id` = #{apiId} and
             </if>
             <if test="endTime != null">
                 `end_time` = #{endTime} and

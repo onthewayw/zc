@@ -1,8 +1,6 @@
 package com.zc.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zc.bean.ZcApi;
-import com.zc.bean.ZcCashOutRecord;
 import com.zc.bean.ZcCommissionRecord;
 
 import java.util.List;

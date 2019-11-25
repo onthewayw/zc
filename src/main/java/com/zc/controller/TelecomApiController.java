@@ -1,10 +1,10 @@
 package com.zc.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zc.bean.ZcApi;
+import com.zc.bean.ZcSetMeal;
 import com.zc.bean.ZcUser;
 import com.zc.constant.WebUserConstant;
-import com.zc.service.ZcApiService;
+import com.zc.service.ZcSetMealService;
 import com.zc.utils.RedisTokenOper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/telecomApi")
 public class TelecomApiController {
     @Autowired(required = false)
-    private ZcApiService zcApiService;
+    private ZcSetMealService zcSetMealService;
 
     @Autowired(required = false)
     private HttpServletRequest request;
@@ -34,15 +34,15 @@ public class TelecomApiController {
      * 分页查询
      */
     @GetMapping("/queryByPage")
-    public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcApi zcApi) {
+    public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
-                zcApi.setUserId(zcUser.getId());
-                PageInfo<ZcApi> zcApiPageInfo = zcApiService.queryByPage(page, size, zcApi);
+                zcSetMeal.setUserId(zcUser.getId());
+                PageInfo<ZcSetMeal> zcApiPageInfo = zcSetMealService.queryByPage(page, size, zcSetMeal);
                 returnObject.put("data", zcApiPageInfo);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
@@ -56,15 +56,15 @@ public class TelecomApiController {
      * 新增信息
      */
     @PostMapping("/add")
-    public Map<String, Object> add(ZcApi zcApi) {
+    public Map<String, Object> add(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
-                zcApi.setUserId(zcUser.getId());
-                Long id = zcApiService.insertZcApi(zcApi);
+                zcSetMeal.setUserId(zcUser.getId());
+                Long id = zcSetMealService.insertZcApi(zcSetMeal);
                 if (null != id) {
                     returnObject.put("id", id);
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
@@ -80,14 +80,14 @@ public class TelecomApiController {
      * 更新信息
      */
     @PostMapping("/update")
-    public Map<String, Object> update(ZcApi zcApi) {
+    public Map<String, Object> update(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
-                int i = zcApiService.updateZcApi(zcApi);
+                int i = zcSetMealService.updateZcApi(zcSetMeal);
                 if (i != 0) {
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 }
