@@ -43,9 +43,8 @@ public class TelecomApiController {
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
                 zcSetMeal.setUserId(zcUser.getId());
-                //PageInfo<ZcSetMeal> zcApiPageInfo = zcSetMealService.queryByPage(page, size, zcSetMeal);
-                List<ZcSetMeal> zcSetMeals = zcSetMealService.queryZcSetMeal(zcSetMeal);
-                returnObject.put("data", zcSetMeals);
+                PageInfo<ZcSetMeal> zcApiPageInfo = zcSetMealService.queryByPage(page, size, zcSetMeal);
+                returnObject.put("data", zcApiPageInfo);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
