@@ -85,6 +85,8 @@ public class ZcUserServiceImpl implements ZcUserService {
             //表示可以登录
             String userAgent = request.getHeader("user-agent");
             String token = TokenUtils.generateJWT(zcUser.getId() + "", zcUser.getUserName(), userAgent);
+            //将密码信息隐藏
+            zcUser.setPassword(null);
             //将信息放入redis
             redisTokenOper.setInfo(token, WebUserConstant.SESSIONUSERINFO, zcUser);
             returnMap.put("token", token);

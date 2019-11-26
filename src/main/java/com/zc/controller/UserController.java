@@ -2,9 +2,12 @@ package com.zc.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcUser;
+import com.zc.constant.SecretConstant;
 import com.zc.constant.WebUserConstant;
 import com.zc.service.ZcUserService;
+import com.zc.utils.CodecUtils;
 import com.zc.utils.RedisTokenOper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +44,11 @@ public class UserController {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
+                //将密码加密后创建
+                if(!StringUtils.isEmpty(zcUser.getPassword())){
+                    String pw = CodecUtils.md5Hex(zcUser.getPassword(), SecretConstant.SLAT);
+                    zcUser.setPassword(pw);
+                }
                 if (null != zcUser.getId()) {
                     int i = zcUserService.updateZcUser(zcUser);
                     if (i != 0) {
