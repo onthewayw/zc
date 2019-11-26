@@ -119,30 +119,41 @@
 
     <select id="queryZcSetMeal" resultMap="ZcSetMealMap">
         select
-        <include refid="allResult"/>
-        from `zc_set_meal` s
-        left join `zc_api` a on a.id=s.api_id
+        s.id,
+        s.user_id,
+        s.api_id,
+        s.end_time,
+        s.cost_price,
+        s.agent_cost_price,
+        s.terminal_price,
+        a.api_name as apiName,
+        a.type
+        from zc_set_meal s
+        left join zc_api a on a.id=s.api_id
         <trim prefix="where" suffixOverrides="and | or">
             <if test="id != null">
-                `id` = #{id} and
+                s.id = #{id} and
             </if>
             <if test="userId != null and userId!=''">
-                `user_id` = #{userId} and
+                s.user_id = #{userId} and
             </if>
             <if test="apiId != null and apiId!=''">
-                `api_id` = #{apiId} and
+                s.api_id = #{apiId} and
             </if>
             <if test="endTime != null">
-                `end_time` = #{endTime} and
+                s.end_time = #{endTime} and
             </if>
             <if test="costPrice != null">
-                `cost_price` = #{costPrice} and
+                s.cost_price = #{costPrice} and
             </if>
             <if test="agentCostPrice != null">
-                `agent_cost_price` = #{agentCostPrice} and
+                s.agent_cost_price = #{agentCostPrice} and
             </if>
             <if test="terminalPrice != null">
-                `terminal_price` = #{terminalPrice} and
+                s.terminal_price = #{terminalPrice} and
+            </if>
+            <if test="type != null">
+                a.type = #{type} and
             </if>
         </trim>
     </select>

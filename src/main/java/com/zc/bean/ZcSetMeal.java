@@ -67,5 +67,5 @@ public class ZcSetMeal implements Serializable {
     /**
      * 1联通卡 2移动卡 3 电信卡
      * */
-    private int type;
+    private Integer type;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Map;
  * @author wangjiangtao
  */
 @RestController
-@RequestMapping("/telecomApi")
+@RequestMapping("/telecom")
 public class TelecomApiController {
     @Autowired(required = false)
     private ZcSetMealService zcSetMealService;
@@ -42,8 +43,9 @@ public class TelecomApiController {
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
                 zcSetMeal.setUserId(zcUser.getId());
-                PageInfo<ZcSetMeal> zcApiPageInfo = zcSetMealService.queryByPage(page, size, zcSetMeal);
-                returnObject.put("data", zcApiPageInfo);
+                //PageInfo<ZcSetMeal> zcApiPageInfo = zcSetMealService.queryByPage(page, size, zcSetMeal);
+                List<ZcSetMeal> zcSetMeals = zcSetMealService.queryZcSetMeal(zcSetMeal);
+                returnObject.put("data", zcSetMeals);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
