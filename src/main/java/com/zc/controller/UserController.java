@@ -41,7 +41,7 @@ public class UserController {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
-                if (null != zcUser) {
+                if (null != zcUser.getId()) {
                     int i = zcUserService.updateZcUser(zcUser);
                     if (i != 0) {
                         returnObject.put("code", WebUserConstant.STATUSSUCCESS);
@@ -65,7 +65,7 @@ public class UserController {
     /**
      * 分页查询
      */
-    @GetMapping("/queryBypage")
+    @GetMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcUser zcUser) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

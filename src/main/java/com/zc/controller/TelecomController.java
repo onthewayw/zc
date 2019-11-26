@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/telecom")
-public class TelecomApiController {
+public class TelecomController {
     @Autowired(required = false)
     private ZcSetMealService zcSetMealService;
 
@@ -32,23 +32,22 @@ public class TelecomApiController {
     private RedisTokenOper redisTokenOper;
 
     /**
-     * 通过api 查询套餐
-     * */
-    @GetMapping("/queryByApiId")
-    public Map<String,Object> queryByApiId(Long apiId){
+     * 条件查询
+     */
+    @GetMapping("/queryByList")
+    public Map<String, Object> queryByList(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
-            if(null!=apiId){
-                ZcSetMeal setMeal=new ZcSetMeal();
-                setMeal.setApiId(apiId);
-                List<ZcSetMeal> zcSetMeals = zcSetMealService.queryZcSetMeal(setMeal);
-                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+            String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+            ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+            if (null != zcUser) {
+                zcSetMeal.setUserId(zcUser.getId());
+                List<ZcSetMeal> zcSetMeals = zcSetMealService.queryZcSetMeal(zcSetMeal);
                 returnObject.put("data", zcSetMeals);
-            }else{
-                returnObject.put("message", "请输入apiId");
+                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return returnObject;
