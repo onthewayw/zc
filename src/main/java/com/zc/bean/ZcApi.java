@@ -6,16 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
-
-
-
 @AllArgsConstructor
 public class ZcApi {
     private Long id;
-    private Long apiName;
+    private String apiName;
     /**
      * 类型  1联通卡  2移动卡  3电信卡
      */
-    private Long type;
+    private Integer type;
 }

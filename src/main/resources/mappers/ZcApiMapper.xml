@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.mapper.ZcApiMapper">
+    <resultMap type="com.zc.bean.ZcApi" id="ZcApiMap">
+        <result property="id" column="id"/>
+        <result property="apiName" column="api_name"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `api_name`,
+            `type`,
+        </trim>
+    </sql>
+
+
+    <insert id="insertZcApi" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `zc_api`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="apiName!=null">
+                `api_name`,
+            </if>
+            <if test="type!=null">
+                `type`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="apiName!=null">
+                #{apiName},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateZcApi">
+        UPDATE `zc_api`
+        SET
+        <trim suffixOverrides=",">
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+
+    <select id="queryZcApi" resultMap="ZcApiMap">
+        select
+        <include refid="allResult"/>
+        from `zc_api`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="apiName != null and apiName!=''">
+                `api_name` = #{apiName} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+        </trim>
+    </select>
+
+</mapper>

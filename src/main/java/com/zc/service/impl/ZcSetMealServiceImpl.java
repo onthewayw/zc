@@ -16,18 +16,18 @@ public class ZcSetMealServiceImpl implements ZcSetMealService {
     private ZcSetMealMapper zcSetMealMapper;
 
     @Override
-    public Long insertZcApi(ZcSetMeal api) {
+    public Long insertZcSetMeal(ZcSetMeal api) {
         zcSetMealMapper.insertZcSetMeal(api);
         return api.getId();
     }
 
     @Override
-    public int updateZcApi(ZcSetMeal api) {
+    public int updateZcSetMeal(ZcSetMeal api) {
         return zcSetMealMapper.updateZcSetMeal(api);
     }
 
     @Override
-    public List<ZcSetMeal> queryZcApi(ZcSetMeal api) {
+    public List<ZcSetMeal> queryZcSetMeal(ZcSetMeal api) {
         return zcSetMealMapper.queryZcSetMeal(api);
     }
 

@@ -6,11 +6,11 @@ import com.zc.bean.ZcSetMeal;
 import java.util.List;
 
 public interface ZcSetMealService {
-    Long insertZcApi(ZcSetMeal object);
+    Long insertZcSetMeal(ZcSetMeal object);
 
-    int updateZcApi(ZcSetMeal object);
+    int updateZcSetMeal(ZcSetMeal object);
 
-    List<ZcSetMeal> queryZcApi(ZcSetMeal object);
+    List<ZcSetMeal> queryZcSetMeal(ZcSetMeal object);
     /**
      * 分页查询
      * */

@@ -64,7 +64,7 @@ public class TelecomApiController {
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
                 zcSetMeal.setUserId(zcUser.getId());
-                Long id = zcSetMealService.insertZcApi(zcSetMeal);
+                Long id = zcSetMealService.insertZcSetMeal(zcSetMeal);
                 if (null != id) {
                     returnObject.put("id", id);
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
@@ -87,7 +87,7 @@ public class TelecomApiController {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
-                int i = zcSetMealService.updateZcApi(zcSetMeal);
+                int i = zcSetMealService.updateZcSetMeal(zcSetMeal);
                 if (i != 0) {
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 }
