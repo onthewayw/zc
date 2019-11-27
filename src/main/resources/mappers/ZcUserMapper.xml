@@ -12,6 +12,7 @@
         <result property="show" column="show"/>
         <result property="parentId" column="parent_id"/>
         <result property="accountBalance" column="account_balance"/>
+        <result property="cashOutPwd" column="cash_out_pwd"/>
     </resultMap>
     <sql id="allResult">
         <trim suffixOverrides=",">
@@ -24,6 +25,7 @@
             `show`,
             `parent_id`,
             `account_balance`,
+            `cash_out_pwd`,
         </trim>
     </sql>
     <sql id="where_condition">
@@ -53,6 +55,9 @@
         </if>
         <if test="accountBalance != null">
             and `account_balance` = #{accountBalance}
+        </if>
+        <if test="cashOutPwd != null and cashOutPwd!=''">
+            and `cash_out_pwd` = #{cashOutPwd}
         </if>
     </sql>
     <select id="queryById" resultMap="ZcUserMap">
@@ -114,6 +119,9 @@
             <if test="accountBalance!=null">
                 `account_balance`,
             </if>
+            <if test="cashOutPwd!=null">
+                `cash_out_pwd`,
+            </if>
         </trim>
         )
         VALUES
@@ -145,6 +153,9 @@
             </if>
             <if test="accountBalance!=null">
                 #{accountBalance},
+            </if>
+            <if test="cashOutPwd!=null">
+                #{cashOutPwd},
             </if>
         </trim>
         )
@@ -178,6 +189,9 @@
             </if>
             <if test="accountBalance != null">
                 `account_balance` = #{accountBalance},
+            </if>
+            <if test="cashOutPwd != null">
+                `cash_out_pwd` = #{cashOutPwd},
             </if>
         </trim>
         WHERE
@@ -218,6 +232,9 @@
             </if>
             <if test="accountBalance != null">
                 `account_balance` = #{accountBalance} and
+            </if>
+            <if test="cashOutPwd != null">
+                `cash_out_pwd` = #{cashOutPwd} and
             </if>
         </trim>
     </select>

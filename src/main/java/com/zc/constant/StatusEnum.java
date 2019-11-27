@@ -2,6 +2,13 @@ package com.zc.constant;
 
 public enum StatusEnum {
 
+    //登录密码错误
+    LOGIN_PWD_CHANGE_ERROR(501, "登录密码错误"),
+    //提现密码错误
+    CASH_OUT_PWD_CHANGE_ERROR(0, "提现密码错误"),
+    //登录密码错误
+    CHANGE_PWD_NO_ERROR(503, "更改密码不存在"),
+
     //登录状态枚举
     LOGIN_STATUS_SUCCESS(0, "登录成功"),
     LOGIN_STATUS_NO_ACCOUNT(1, "账号不存在"),
