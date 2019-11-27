@@ -69,5 +69,6 @@ public class ZcCashOutRecord implements Serializable {
      * 1申请中 2申请成功
      * isNullAble:1
      */
-    private String remarkStatus;
+    private Integer remarkStatus;
+
 }

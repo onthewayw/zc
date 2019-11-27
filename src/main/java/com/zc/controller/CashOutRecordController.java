@@ -3,6 +3,7 @@ package com.zc.controller;
 import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcCashOutRecord;
 import com.zc.bean.ZcUser;
+import com.zc.constant.StatusEnum;
 import com.zc.constant.WebUserConstant;
 import com.zc.service.ZcCashOutRecordService;
 import com.zc.utils.RedisTokenOper;
@@ -27,6 +28,14 @@ public class CashOutRecordController {
 
     @Autowired(required = false)
     private RedisTokenOper redisTokenOper;
+
+    /**
+     * 提现
+     */
+    @PostMapping("/withdraw")
+    public Map<String, Object> withdraw(ZcCashOutRecord record) {
+        return zcCashOutRecordService.withdraw(request, record);
+    }
 
     /**
      * 分页查询
@@ -62,8 +71,8 @@ public class CashOutRecordController {
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
                 Long id = zcCashOutRecordService.insertZcCashOutRecord(record);
-                if(null!=id){
-                    returnObject.put("id",id);
+                if (null != id) {
+                    returnObject.put("id", id);
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 }
             }

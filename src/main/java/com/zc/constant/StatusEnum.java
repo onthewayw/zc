@@ -2,12 +2,26 @@ package com.zc.constant;
 
 public enum StatusEnum {
 
+    /**
+     * 支付方式
+     * */
+    PAY_ALI(1,"支付宝"),
+
+    /**
+     *  提现申请记录
+     * */
+    CASH_OUT_APPLICATION(1,"申请中"),
+    CASH_OUT_APPLICATION_SUCCESS(2,"申请成功"),
+
+    CASH_OUT_GREATER_THAN_ZERO_ERR(501,"提现金额要大于0"),
+    CASH_OUT_GREATER_THAN_AMOUNT_ERR(502,"提现金额要小于当前余额"),
+
     //登录密码错误
     LOGIN_PWD_CHANGE_ERROR(501, "登录密码错误"),
     //提现密码错误
-    CASH_OUT_PWD_CHANGE_ERROR(0, "提现密码错误"),
+    CASH_OUT_PWD_CHANGE_ERROR(502, "提现密码错误"),
     //登录密码错误
-    CHANGE_PWD_NO_ERROR(503, "更改密码不存在"),
+    CHANGE_PWD_NO_ERROR(503, "更改密码为空"),
 
     //登录状态枚举
     LOGIN_STATUS_SUCCESS(0, "登录成功"),

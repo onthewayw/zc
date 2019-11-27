@@ -122,10 +122,10 @@ public class UserController {
                     String pw = CodecUtils.md5Hex(zcUser.getPassword(), SecretConstant.SLAT);
                     zcUser.setPassword(pw);
                 }
-                if (!StringUtils.isEmpty(zcUser.getCashOutPwd())) {
+                /*if (!StringUtils.isEmpty(zcUser.getCashOutPwd())) {
                     String pw = CodecUtils.md5Hex(zcUser.getCashOutPwd(), SecretConstant.SLAT);
                     zcUser.setCashOutPwd(pw);
-                }
+                }*/
                 if (null != zcUser.getId()) {
                     int i = zcUserService.updateZcUser(zcUser);
                     if (i != 0) {
