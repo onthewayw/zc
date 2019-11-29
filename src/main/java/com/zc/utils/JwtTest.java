@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wangjiangtao
@@ -50,12 +52,15 @@ public class JwtTest {
     @Test
     public void testGenerateJWT() {
         String s = TokenUtils.generateJWT(1L + "", "wang", "谷歌");
-        System.out.println("token=="+s);
+        System.out.println("token==" + s);
     }
-    @Test
-    public void testParseJwt(){
-        Claims claims = TokenUtils.parseJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJFODdFQTk2NTQwNEYyOUZBODI1RkMzNzQzNUExNjQ3MSIsInVzZXJuYW1lIjoid2FuZyIsInVzZXJBZ2VudCI6Iuiwt-atjCIsImV4cCI6MTU3MzgwODg2MywibmJmIjoxNTczODA3MDYzfQ.Ey16nGBfNmSLH0qsbxNHZEzDMh8o5HmfZmoBAKI4Q30");
-        System.out.println(claims);
 
+    @Test
+    public void testParseJwt() {
+        /*Claims claims = TokenUtils.parseJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJFODdFQTk2NTQwNEYyOUZBODI1RkMzNzQzNUExNjQ3MSIsInVzZXJuYW1lIjoid2FuZyIsInVzZXJBZ2VudCI6Iuiwt-atjCIsImV4cCI6MTU3MzgwODg2MywibmJmIjoxNTczODA3MDYzfQ.Ey16nGBfNmSLH0qsbxNHZEzDMh8o5HmfZmoBAKI4Q30");
+        System.out.println(claims);*/
+        Map<String, Object> map = new HashMap<>(4);
+        map.put("w",1);
+        System.out.println(map.get("w"));
     }
 }

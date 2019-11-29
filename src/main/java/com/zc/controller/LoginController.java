@@ -3,6 +3,7 @@ package com.zc.controller;
 import com.zc.service.ZcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,4 +31,6 @@ public class LoginController {
         //1 根据手机号查询
         return zcUserService.login(phoneNum, password,request);
     }
+
+
 }
