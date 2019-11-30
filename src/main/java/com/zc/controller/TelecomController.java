@@ -34,7 +34,7 @@ public class TelecomController {
     /**
      * 条件查询
      */
-    @GetMapping("/queryByList")
+    @RequestMapping("/queryByList")
     public Map<String, Object> queryByList(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -56,7 +56,7 @@ public class TelecomController {
     /**
      * 分页查询
      */
-    @GetMapping("/queryByPage")
+    @RequestMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -78,7 +78,7 @@ public class TelecomController {
     /**
      * 新增信息
      */
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public Map<String, Object> add(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -102,7 +102,7 @@ public class TelecomController {
     /**
      * 更新信息
      */
-    @PostMapping("/update")
+    @RequestMapping("/update")
     public Map<String, Object> update(ZcSetMeal zcSetMeal) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

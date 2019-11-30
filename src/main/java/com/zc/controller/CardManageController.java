@@ -29,7 +29,7 @@ public class CardManageController {
     /**
      * 分页查询
      */
-    @GetMapping("/queryByPage")
+    @RequestMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcCardManage cardManage) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -51,7 +51,7 @@ public class CardManageController {
     /**
      * 新增记录
      */
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public Map<String, Object> addRecord(ZcCardManage zcCardManage) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

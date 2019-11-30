@@ -32,7 +32,7 @@ public class CashOutRecordController {
     /**
      * 提现
      */
-    @PostMapping("/withdraw")
+    @RequestMapping("/withdraw")
     public Map<String, Object> withdraw(ZcCashOutRecord record) {
         return zcCashOutRecordService.withdraw(request, record);
     }
@@ -40,7 +40,7 @@ public class CashOutRecordController {
     /**
      * 分页查询
      */
-    @GetMapping("/queryByPage")
+    @RequestMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcCashOutRecord record) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -62,7 +62,7 @@ public class CashOutRecordController {
     /**
      * 新增记录
      */
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public Map<String, Object> add(ZcCashOutRecord record) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

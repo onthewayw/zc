@@ -25,7 +25,7 @@ public class LoginController {
      * @param password
      * @return
      */
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public Map<String, Object> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("password") String password, HttpServletRequest request) {
 
         //1 根据手机号查询

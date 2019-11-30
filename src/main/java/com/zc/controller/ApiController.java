@@ -4,7 +4,6 @@ import com.zc.bean.ZcApi;
 import com.zc.constant.WebUserConstant;
 import com.zc.service.ZcApiService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +20,7 @@ public class ApiController {
     @Autowired(required = false)
     private ZcApiService zcApiService;
 
-    @GetMapping("/queryByType")
+    @RequestMapping("/queryByType")
     public Map<String,Object> queryByType(Integer type){
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

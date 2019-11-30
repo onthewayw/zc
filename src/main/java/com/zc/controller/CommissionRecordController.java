@@ -31,7 +31,7 @@ public class CommissionRecordController {
     /**
      * 分页查询
      */
-    @GetMapping("/queryByPage")
+    @RequestMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcCommissionRecord commissionRecord) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -53,7 +53,7 @@ public class CommissionRecordController {
     /**
      * 新增记录
      */
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public Map<String, Object> add(ZcCommissionRecord commissionRecord) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

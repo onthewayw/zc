@@ -30,7 +30,7 @@ public class BalanceController {
     @Autowired(required = false)
     private RedisTokenOper redisTokenOper;
 
-    @GetMapping("/queryByPage")
+    @RequestMapping("/queryByPage")
     public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size,ZcBalance balance) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
@@ -51,7 +51,7 @@ public class BalanceController {
     /**
      * 新增记录
      */
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public Map<String, Object> addRecord(ZcBalance zcBalance) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
