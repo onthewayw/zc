@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,4 +97,9 @@ public class ZcCardManage implements Serializable {
      * */
     @JsonIgnore
     private Long lessAllowance;
+
+    /**
+     * 套餐余量 （除100）
+     * */
+    private BigDecimal allowanceDecimal;
 }

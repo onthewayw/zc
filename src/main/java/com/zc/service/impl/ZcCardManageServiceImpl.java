@@ -9,7 +9,9 @@ import com.zc.service.ZcCardManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ZcCardManageServiceImpl implements ZcCardManageService {
@@ -28,8 +30,12 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
     }
 
     @Override
-    public List<ZcCardManage> queryZcCardManage(ZcCardManage object) {
-        return zcCardManageMapper.queryZcCardManage(object);
+    public List<ZcCardManage> queryZcCardManage(ZcCardManage zcCardManage) {
+        List<ZcCardManage> zcCardManages = zcCardManageMapper.queryZcCardManage(zcCardManage);
+        List<ZcCardManage> records = zcCardManages.stream().peek(card -> {
+            card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()));
+        }).collect(Collectors.toList());
+        return records;
     }
 
     @Override
@@ -38,7 +44,10 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCardManage> zcCardManages = zcCardManageMapper.queryZcCardManage(zcCardManage);
-        PageInfo<ZcCardManage> pageInfo = new PageInfo<>(zcCardManages);
+        List<ZcCardManage> records = zcCardManages.stream().peek(card -> {
+            card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()));
+        }).collect(Collectors.toList());
+        PageInfo<ZcCardManage> pageInfo = new PageInfo<>(records);
         return pageInfo;
     }
 
