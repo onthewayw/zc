@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
@@ -44,8 +46,12 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
     }
 
     @Override
-    public List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord object) {
-        return zcCashOutRecordMapper.queryZcCashOutRecord(object);
+    public List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord zcCashOutRecord) {
+        List<ZcCashOutRecord> zcCashOutRecords = zcCashOutRecordMapper.queryZcCashOutRecord(zcCashOutRecord);
+        List<ZcCashOutRecord> records = zcCashOutRecords.stream().peek(record -> {
+            record.setCashOutAmountDecimal(BigDecimal.valueOf(record.getCashOutAmount() / 100));
+        }).collect(Collectors.toList());
+        return records;
     }
 
     @Override
@@ -54,7 +60,10 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCashOutRecord> zcCashOutRecords = zcCashOutRecordMapper.queryZcCashOutRecord(zcCashOutRecord);
-        PageInfo<ZcCashOutRecord> zcCashOutRecordPageInfo = new PageInfo<>(zcCashOutRecords);
+        List<ZcCashOutRecord> records = zcCashOutRecords.stream().peek(record -> {
+            record.setCashOutAmountDecimal(BigDecimal.valueOf(record.getCashOutAmount() / 100));
+        }).collect(Collectors.toList());
+        PageInfo<ZcCashOutRecord> zcCashOutRecordPageInfo = new PageInfo<>(records);
         return zcCashOutRecordPageInfo;
     }
 

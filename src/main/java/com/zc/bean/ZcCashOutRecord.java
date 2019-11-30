@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -70,5 +71,6 @@ public class ZcCashOutRecord implements Serializable {
      * isNullAble:1
      */
     private Integer remarkStatus;
-
+    //=====辅助金额======
+    private BigDecimal cashOutAmountDecimal;
 }

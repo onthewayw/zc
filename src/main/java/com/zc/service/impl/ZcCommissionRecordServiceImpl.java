@@ -9,7 +9,9 @@ import com.zc.service.ZcCommissionRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService {
@@ -28,8 +30,13 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
     }
 
     @Override
-    public List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord object) {
-        return zcCommissionRecordMapper.queryZcCommissionRecord(object);
+    public List<ZcCommissionRecord> queryZcCommissionRecord(ZcCommissionRecord zcCommissionRecord) {
+        List<ZcCommissionRecord> zcCommissionRecords = zcCommissionRecordMapper.queryZcCommissionRecord(zcCommissionRecord);
+        List<ZcCommissionRecord> records = zcCommissionRecords.stream().peek(record -> {
+            record.setChangeAmountDecimal(BigDecimal.valueOf(record.getChangeAmount() / 100));
+            record.setChangeAfterAmountDecimal(BigDecimal.valueOf(record.getChangeAfterAmount() / 100));
+        }).collect(Collectors.toList());
+        return records;
     }
 
     @Override
@@ -38,7 +45,11 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCommissionRecord> zcCommissionRecords = zcCommissionRecordMapper.queryZcCommissionRecord(zcCommissionRecord);
-        PageInfo<ZcCommissionRecord> pageInfo = new PageInfo<>(zcCommissionRecords);
+        List<ZcCommissionRecord> records = zcCommissionRecords.stream().peek(record -> {
+            record.setChangeAmountDecimal(BigDecimal.valueOf(record.getChangeAmount() / 100));
+            record.setChangeAfterAmountDecimal(BigDecimal.valueOf(record.getChangeAfterAmount() / 100));
+        }).collect(Collectors.toList());
+        PageInfo<ZcCommissionRecord> pageInfo = new PageInfo<>(records);
         return pageInfo;
     }
 

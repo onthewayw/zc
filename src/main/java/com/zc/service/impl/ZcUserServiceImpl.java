@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ZcUserServiceImpl implements ZcUserService {
@@ -40,14 +42,20 @@ public class ZcUserServiceImpl implements ZcUserService {
     }
 
     @Override
-    public List<ZcUser> queryZcUser(ZcUser object) {
-        return zcUserMapper.queryZcUser(object);
+    public List<ZcUser> queryZcUser(ZcUser zcUser) {
+        List<ZcUser> zcUsers = zcUserMapper.queryZcUser(zcUser);
+        List<ZcUser> records = zcUsers.stream().peek(user -> {
+            user.setAccountBalanceDecimal(BigDecimal.valueOf(user.getAccountBalance() / 100));
+        }).collect(Collectors.toList());
+        return records;
     }
 
 
     @Override
     public ZcUser queryById(Long id) {
-        return zcUserMapper.queryById(id);
+        ZcUser zcUser = zcUserMapper.queryById(id);
+        zcUser.setAccountBalanceDecimal(BigDecimal.valueOf(zcUser.getAccountBalance() / 100));
+        return zcUser;
     }
 
     @Override
@@ -106,7 +114,10 @@ public class ZcUserServiceImpl implements ZcUserService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcUser> zcUsers = zcUserMapper.queryZcUser(zcUser);
-        PageInfo<ZcUser> pageInfo = new PageInfo<>(zcUsers);
+        List<ZcUser> records = zcUsers.stream().peek(user -> {
+            user.setAccountBalanceDecimal(BigDecimal.valueOf(user.getAccountBalance() / 100));
+        }).collect(Collectors.toList());
+        PageInfo<ZcUser> pageInfo = new PageInfo<>(records);
         return pageInfo;
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -69,4 +70,7 @@ public class ZcBalance implements Serializable {
      */
     private String createStartTime;
     private String creteEndTime;
+
+    private BigDecimal amountDecimal;
+    private BigDecimal balanceAfterChangeDecimal;
 }

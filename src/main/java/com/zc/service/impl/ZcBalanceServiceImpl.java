@@ -8,7 +8,9 @@ import com.zc.service.ZcBalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ZcBalanceServiceImpl implements ZcBalanceService {
@@ -28,7 +30,12 @@ public class ZcBalanceServiceImpl implements ZcBalanceService {
 
     @Override
     public List<ZcBalance> queryZcBalance(ZcBalance object) {
-        return zcBalanceMapper.queryZcBalance(object);
+        List<ZcBalance> zcBalances = zcBalanceMapper.queryZcBalance(object);
+        List<ZcBalance> balances = zcBalances.stream().peek(balance -> {
+            balance.setAmountDecimal(BigDecimal.valueOf(balance.getAmount() / 100));
+            balance.setBalanceAfterChangeDecimal(BigDecimal.valueOf(balance.getBalanceAfterChange() / 100));
+        }).collect(Collectors.toList());
+        return balances;
     }
 
     @Override
@@ -37,7 +44,11 @@ public class ZcBalanceServiceImpl implements ZcBalanceService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcBalance> zcBalances = zcBalanceMapper.queryZcBalance(zcBalance);
-        PageInfo<ZcBalance> pageInfo = new PageInfo<>(zcBalances);
+        List<ZcBalance> balances = zcBalances.stream().peek(balance -> {
+            balance.setAmountDecimal(BigDecimal.valueOf(balance.getAmount() / 100));
+            balance.setBalanceAfterChangeDecimal(BigDecimal.valueOf(balance.getBalanceAfterChange() / 100));
+        }).collect(Collectors.toList());
+        PageInfo<ZcBalance> pageInfo = new PageInfo<>(balances);
         return pageInfo;
     }
 }

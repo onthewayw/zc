@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @author author
@@ -80,8 +81,14 @@ public class ZcUser implements Serializable {
     /**
      * 提现密码
      */
+    @JsonIgnore
+    @Length(min = 4, max = 30, message = "用户名只能在4~30位之间")
     private String cashOutPwd;
 
     //========辅助字段=========
     private String changePwd;
+    /**
+     * 金额除100之后
+     */
+    private BigDecimal accountBalanceDecimal;
 }
