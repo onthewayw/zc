@@ -45,12 +45,16 @@ public class ZcSetMealServiceImpl implements ZcSetMealService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcSetMeal> zcSetMeals = zcSetMealMapper.queryZcSetMeal(zcSetMeal);
-        List<ZcSetMeal> records = zcSetMeals.stream().peek(meal -> {
-            meal.setCostPriceDecimal(BigDecimal.valueOf(meal.getCostPrice()/100));
-            meal.setTerminalPriceDecimal(BigDecimal.valueOf(meal.getTerminalPrice()/100));
-            meal.setAgentCostPriceDecimal(BigDecimal.valueOf(meal.getAgentCostPrice()/100));
-        }).collect(Collectors.toList());
-        PageInfo<ZcSetMeal> zcApiPageInfo = new PageInfo<>(records);
-        return zcApiPageInfo;
+
+        PageInfo<ZcSetMeal> pageInfo = new PageInfo<>(zcSetMeals);
+        if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
+            List<ZcSetMeal> records = zcSetMeals.stream().peek(meal -> {
+                meal.setCostPriceDecimal(BigDecimal.valueOf(meal.getCostPrice() / 100));
+                meal.setTerminalPriceDecimal(BigDecimal.valueOf(meal.getTerminalPrice() / 100));
+                meal.setAgentCostPriceDecimal(BigDecimal.valueOf(meal.getAgentCostPrice() / 100));
+            }).collect(Collectors.toList());
+            pageInfo.setList(records);
+        }
+        return pageInfo;
     }
 }

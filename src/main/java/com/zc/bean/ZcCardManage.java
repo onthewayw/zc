@@ -53,7 +53,7 @@ public class ZcCardManage implements Serializable {
 
     /**
      * 套餐余量
-     * */
+     */
     private Long allowance;
 
     /**
@@ -80,6 +80,11 @@ public class ZcCardManage implements Serializable {
      */
     private Long apiId;
 
+    /**
+     * 地区
+     */
+    private String area;
+
     //===========辅助查询字段 返回不需要展示=========================
     /**
      * 开始iccid
@@ -94,12 +99,12 @@ public class ZcCardManage implements Serializable {
     private String endIccid;
     /**
      * 小于套餐余量
-     * */
+     */
     @JsonIgnore
     private Long lessAllowance;
 
     /**
      * 套餐余量 （除100）
-     * */
+     */
     private BigDecimal allowanceDecimal;
 }

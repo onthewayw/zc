@@ -3,6 +3,7 @@ package com.zc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zc.bean.ZcBalance;
 import com.zc.bean.ZcCommissionRecord;
 import com.zc.mapper.ZcCommissionRecordMapper;
 import com.zc.service.ZcCommissionRecordService;
@@ -45,11 +46,14 @@ public class ZcCommissionRecordServiceImpl implements ZcCommissionRecordService 
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCommissionRecord> zcCommissionRecords = zcCommissionRecordMapper.queryZcCommissionRecord(zcCommissionRecord);
-        List<ZcCommissionRecord> records = zcCommissionRecords.stream().peek(record -> {
-            record.setChangeAmountDecimal(BigDecimal.valueOf(record.getChangeAmount() / 100));
-            record.setChangeAfterAmountDecimal(BigDecimal.valueOf(record.getChangeAfterAmount() / 100));
-        }).collect(Collectors.toList());
-        PageInfo<ZcCommissionRecord> pageInfo = new PageInfo<>(records);
+        PageInfo<ZcCommissionRecord> pageInfo = new PageInfo<>(zcCommissionRecords);
+        if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
+            List<ZcCommissionRecord> balances = pageInfo.getList().stream().peek(record -> {
+                record.setChangeAmountDecimal(BigDecimal.valueOf(record.getChangeAmount() / 100));
+                record.setChangeAfterAmountDecimal(BigDecimal.valueOf(record.getChangeAfterAmount() / 100));
+            }).collect(Collectors.toList());
+            pageInfo.setList(balances);
+        }
         return pageInfo;
     }
 

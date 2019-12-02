@@ -44,10 +44,13 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCardManage> zcCardManages = zcCardManageMapper.queryZcCardManage(zcCardManage);
-        List<ZcCardManage> records = zcCardManages.stream().peek(card -> {
-            card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()));
-        }).collect(Collectors.toList());
-        PageInfo<ZcCardManage> pageInfo = new PageInfo<>(records);
+        PageInfo<ZcCardManage> pageInfo = new PageInfo<>(zcCardManages);
+        if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
+            List<ZcCardManage> records = pageInfo.getList().stream().peek(card -> {
+                card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()));
+            }).collect(Collectors.toList());
+            pageInfo.setList(records);
+        }
         return pageInfo;
     }
 

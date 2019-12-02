@@ -114,10 +114,14 @@ public class ZcUserServiceImpl implements ZcUserService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcUser> zcUsers = zcUserMapper.queryZcUser(zcUser);
-        List<ZcUser> records = zcUsers.stream().peek(user -> {
-            user.setAccountBalanceDecimal(BigDecimal.valueOf(user.getAccountBalance() / 100));
-        }).collect(Collectors.toList());
-        PageInfo<ZcUser> pageInfo = new PageInfo<>(records);
+
+        PageInfo<ZcUser> pageInfo = new PageInfo<>(zcUsers);
+        if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
+            List<ZcUser> records = zcUsers.stream().peek(user -> {
+                user.setAccountBalanceDecimal(BigDecimal.valueOf(user.getAccountBalance() / 100));
+            }).collect(Collectors.toList());
+            pageInfo.setList(records);
+        }
         return pageInfo;
     }
 }

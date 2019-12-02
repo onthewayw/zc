@@ -60,11 +60,15 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcCashOutRecord> zcCashOutRecords = zcCashOutRecordMapper.queryZcCashOutRecord(zcCashOutRecord);
-        List<ZcCashOutRecord> records = zcCashOutRecords.stream().peek(record -> {
-            record.setCashOutAmountDecimal(BigDecimal.valueOf(record.getCashOutAmount() / 100));
-        }).collect(Collectors.toList());
-        PageInfo<ZcCashOutRecord> zcCashOutRecordPageInfo = new PageInfo<>(records);
-        return zcCashOutRecordPageInfo;
+
+        PageInfo<ZcCashOutRecord> pageInfo = new PageInfo<>(zcCashOutRecords);
+        if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
+            List<ZcCashOutRecord> records = pageInfo.getList().stream().peek(record -> {
+                record.setCashOutAmountDecimal(BigDecimal.valueOf(record.getCashOutAmount() / 100));
+            }).collect(Collectors.toList());
+            pageInfo.setList(records);
+        }
+        return pageInfo;
     }
 
     @Transactional
