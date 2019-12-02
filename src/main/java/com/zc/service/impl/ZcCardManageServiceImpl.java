@@ -47,7 +47,7 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
         PageInfo<ZcCardManage> pageInfo = new PageInfo<>(zcCardManages);
         if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
             List<ZcCardManage> records = pageInfo.getList().stream().peek(card -> {
-                card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()));
+                card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()/100));
             }).collect(Collectors.toList());
             pageInfo.setList(records);
         }
