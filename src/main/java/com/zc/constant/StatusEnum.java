@@ -3,6 +3,12 @@ package com.zc.constant;
 public enum StatusEnum {
 
     /**
+     * 批量方式
+     * */
+    BATCH_RECHARGE(1,"批量充值"),
+    BATCH_STROKE_CARD(2,"批量划卡"),
+
+    /**
      * 支付方式
      * */
     PAY_ALI(1,"支付宝"),

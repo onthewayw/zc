@@ -49,7 +49,7 @@ public class ZcCardManage implements Serializable {
     /**
      * isNullAble:1
      */
-    private String iccid;
+    private Long iccid;
 
     /**
      * 套餐余量
@@ -107,4 +107,10 @@ public class ZcCardManage implements Serializable {
      * 套餐余量 （除100）
      */
     private BigDecimal allowanceDecimal;
+
+    /**
+     * 1.批量充值
+     * 2.批量划卡
+     */
+    private Integer batchType;
 }
