@@ -36,12 +36,23 @@ public class CardManageController {
     /**
      * 批量充值
      */
-    @RequestMapping("/batchOperation")
-    public Map<String, Object> queryByPage(ZcCardManage cardManage) {
+    @RequestMapping("/batchRecharge")
+    public Map<String, Object> batchRecharge(ZcCardManage cardManage) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         returnObject.put("message", "服务器错误");
         try {
+            if (null != cardManage.getBeginIccid() && null != cardManage.getEndIccid()) {
+                if (cardManage.getEndIccid() - cardManage.getBeginIccid() > WebUserConstant.FIVEHUNDRED) {
+                    returnObject.put("code", WebUserConstant.STATUBIGERROR);
+                    returnObject.put("message", "超过500");
+                    return returnObject;
+                }
+            } else {
+                returnObject.put("code", WebUserConstant.STATUICCICNOERROR);
+                returnObject.put("message", "iccid为空");
+                return returnObject;
+            }
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
@@ -52,18 +63,54 @@ public class CardManageController {
                     if (collect.size() == 0) {
                         returnObject.put("code", WebUserConstant.STATUNOERROR);
                         returnObject.put("message", "查询不到数据");
+                        return returnObject;
                     }
-                    if (collect.size() > 500) {
-                        returnObject.put("code", WebUserConstant.STATUBIGERROR);
-                        returnObject.put("message", "数据大于500");
-                    }
-                    if (StatusEnum.BATCH_RECHARGE.getCode() == cardManage.getBatchType()) {
-                        logger.info("批量充值----" + zcCardManages.size());
+                    logger.info("批量充值----" + zcCardManages.size());
+                    returnObject.put("recordNum", cardManage.getEndIccid() - cardManage.getBeginIccid());
+                    returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                    returnObject.put("message", "请求成功");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnObject;
+    }
 
-                    } else if (StatusEnum.BATCH_STROKE_CARD.getCode() == cardManage.getBatchType()) {
-                        logger.info("批量划卡----" + zcCardManages.size());
-
+    /**
+     * 批量划卡
+     */
+    @RequestMapping("/batchStrokeCard")
+    public Map<String, Object> batchStrokeCard(ZcCardManage cardManage) {
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        returnObject.put("message", "服务器错误");
+        try {
+            if (null != cardManage.getBeginIccid() && null != cardManage.getEndIccid()) {
+                if (cardManage.getEndIccid() - cardManage.getBeginIccid() > WebUserConstant.FIVEHUNDRED) {
+                    returnObject.put("code", WebUserConstant.STATUBIGERROR);
+                    returnObject.put("message", "超过500");
+                    return returnObject;
+                }
+            } else {
+                returnObject.put("code", WebUserConstant.STATUICCICNOERROR);
+                returnObject.put("message", "iccid为空");
+                return returnObject;
+            }
+            String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+            ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+            if (null != zcUser) {
+                cardManage.setUserId(zcUser.getId());
+                List<ZcCardManage> zcCardManages = zcCardManageService.queryZcCardManage(cardManage);
+                if (null != zcCardManages && zcCardManages.size() > 0) {
+                    List<ZcCardManage> collect = zcCardManages.stream().filter(c -> c.getType().equals(zcCardManages.get(0).getType())).collect(Collectors.toList());
+                    if (collect.size() == 0) {
+                        returnObject.put("code", WebUserConstant.STATUNOERROR);
+                        returnObject.put("message", "查询不到数据");
+                        return returnObject;
                     }
+                    logger.info("批量划卡----" + zcCardManages.size());
+                    returnObject.put("recordNum", cardManage.getEndIccid() - cardManage.getBeginIccid());
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                     returnObject.put("message", "请求成功");
                 }

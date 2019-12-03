@@ -27,4 +27,14 @@ public class WebUserConstant {
      * status状态码没有数据
      */
     public static final Integer STATUNOERROR = 202;
+    /**
+     * status状态码  iccid为空
+     */
+    public static final Integer STATUICCICNOERROR = 203;
+
+
+    /**
+     * status状态码  500
+     */
+    public static final Integer FIVEHUNDRED = 500;
 }

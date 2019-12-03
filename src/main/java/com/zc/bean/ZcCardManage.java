@@ -90,13 +90,13 @@ public class ZcCardManage implements Serializable {
      * 开始iccid
      */
     @JsonIgnore
-    private String beginIccid;
+    private Long beginIccid;
 
     /**
      * 结束iccid
      */
     @JsonIgnore
-    private String endIccid;
+    private Long endIccid;
     /**
      * 小于套餐余量
      */
@@ -108,9 +108,4 @@ public class ZcCardManage implements Serializable {
      */
     private BigDecimal allowanceDecimal;
 
-    /**
-     * 1.批量充值
-     * 2.批量划卡
-     */
-    private Integer batchType;
 }
