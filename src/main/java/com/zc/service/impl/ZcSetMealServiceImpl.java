@@ -45,7 +45,6 @@ public class ZcSetMealServiceImpl implements ZcSetMealService {
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
         PageHelper.startPage(page, pageSize);
         List<ZcSetMeal> zcSetMeals = zcSetMealMapper.queryZcSetMeal(zcSetMeal);
-
         PageInfo<ZcSetMeal> pageInfo = new PageInfo<>(zcSetMeals);
         if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
             List<ZcSetMeal> records = zcSetMeals.stream().peek(meal -> {
