@@ -27,7 +27,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(actionInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login/**")
-                .excludePathPatterns("/index/**","/static/**","/templates/**","/api/**");
+                .excludePathPatterns("/index**","/static/**","/templates/**","/api/**");
     }
     /**
      * 资源拦截

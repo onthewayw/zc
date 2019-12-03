@@ -45,7 +45,7 @@ public class ActionInterceptor implements HandlerInterceptor {
                 if (null == bean) {
                     //表示用户没有登录
 
-                    /**
+                    /*
                      * 拦截目录下请求，是否为ajax请求
                      *   是：无需登录，直接访问（因为我是用于首页的ajax登录请求）
                      *   否：跳转至登录界面
@@ -75,7 +75,9 @@ public class ActionInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    /*返回客户端数据*/
+    /**
+     * 返回客户端数据
+     * */
     private void returnJson(HttpServletResponse response, String json) {
         PrintWriter writer = null;
         response.setCharacterEncoding("UTF-8");
