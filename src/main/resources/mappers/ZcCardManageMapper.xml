@@ -146,7 +146,7 @@
             <if test="apiId != null">
                 `api_id` = #{apiId},
             </if>
-            <if test="area != null">
+            <if test="area != null and area!=''">
                 `area` = #{area},
             </if>
         </trim>
@@ -201,7 +201,7 @@
             <if test="apiId != null">
                 `api_id` = #{apiId} and
             </if>
-            <if test="area != null">
+            <if test="area != null and area!=''">
                 `area` = #{area} and
             </if>
         </trim>
