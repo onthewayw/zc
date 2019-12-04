@@ -31,7 +31,7 @@ public class BalanceController {
     private RedisTokenOper redisTokenOper;
 
     @RequestMapping("/queryByPage")
-    public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size,ZcBalance balance) {
+    public Map<String, Object> queryByPage(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, ZcBalance balance) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
@@ -40,7 +40,7 @@ public class BalanceController {
             if (null != zcUser) {
                 balance.setUserId(zcUser.getId());
                 PageInfo<ZcBalance> pageInfo = zcBalanceService.queryPageByUserId(page, size, balance);
-                returnObject.put("data",pageInfo);
+                returnObject.put("data", pageInfo);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
@@ -48,6 +48,7 @@ public class BalanceController {
         }
         return returnObject;
     }
+
     /**
      * 新增记录
      */
@@ -66,7 +67,7 @@ public class BalanceController {
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return returnObject;

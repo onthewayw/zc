@@ -29,7 +29,7 @@ public class LoginController {
     public Map<String, Object> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("password") String password, HttpServletRequest request) {
 
         //1 根据手机号查询
-        return zcUserService.login(phoneNum, password,request);
+        return zcUserService.login(phoneNum, password, request);
     }
 
 

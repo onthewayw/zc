@@ -21,20 +21,20 @@ public class ApiController {
     private ZcApiService zcApiService;
 
     @RequestMapping("/queryByType")
-    public Map<String,Object> queryByType(Integer type){
+    public Map<String, Object> queryByType(Integer type) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
-            if(null!=type){
-                ZcApi zcApi=new ZcApi();
+            if (null != type) {
+                ZcApi zcApi = new ZcApi();
                 zcApi.setType(type);
                 List<ZcApi> zcApis = zcApiService.queryZcApi(zcApi);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 returnObject.put("data", zcApis);
-            }else{
+            } else {
                 returnObject.put("message", "请输入type");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return returnObject;
