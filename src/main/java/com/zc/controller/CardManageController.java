@@ -34,6 +34,11 @@ public class CardManageController {
     private RedisTokenOper redisTokenOper;
 
     /**
+     * 获取三种总数
+     * */
+
+
+    /**
      * 批量充值
      */
     @RequestMapping("/batchRecharge")
