@@ -76,4 +76,6 @@ public class ZcCashOutRecord implements Serializable {
 
     private String createBeginTimeStr;
     private String createEndTimeStr;
+
+    private String cashOutPassword;
 }
