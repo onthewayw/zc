@@ -126,7 +126,18 @@
             `id` = #{id} and
         </trim>
     </update>
-
+    <select id="queryById" resultMap="ZcSetMealMap">
+        select
+        `id`,
+        `user_id`,
+        `api_id`,
+        `period_time`,
+        `cost_price`,
+        `agent_cost_price`,
+        `terminal_price`,
+        `set_meal_name`
+        where id=#{id}
+    </select>
 
     <select id="queryZcSetMeal" resultMap="ZcSetMealMap">
         select

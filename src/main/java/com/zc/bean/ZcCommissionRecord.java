@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author author
@@ -44,7 +41,7 @@ public class ZcCommissionRecord implements Serializable {
      * 记录创建时间
      * isNullAble:1
      */
-    private String createTime;
+    private Date createTime;
 
     /**
      * 0增加 1减少

@@ -55,7 +55,7 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
     }
 
     @Override
-    public ZcCardManage queryByIccid(String iccid) {
+    public ZcCardManage queryByIccid(Long iccid) {
         return zcCardManageMapper.queryByIccid(iccid);
     }
 }

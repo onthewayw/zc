@@ -43,6 +43,11 @@ public class ZcSetMealServiceImpl implements ZcSetMealService {
     }
 
     @Override
+    public ZcSetMeal queryById(Long id) {
+        return zcSetMealMapper.queryById(id);
+    }
+
+    @Override
     public PageInfo<ZcSetMeal> queryByPage(Integer page, Integer pageSize, ZcSetMeal zcSetMeal) {
         //开启分页查询，写在查询语句上面
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页

@@ -14,5 +14,5 @@ public interface ZcSetMealMapper {
     int updateZcSetMeal(ZcSetMeal object);
 
     List<ZcSetMeal> queryZcSetMeal(ZcSetMeal object);
-
+    ZcSetMeal queryById(Long id);
 }

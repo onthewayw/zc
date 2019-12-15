@@ -2,10 +2,15 @@ package com.zc.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.zc.bean.ZcCardManage;
+import com.zc.bean.ZcCommissionRecord;
+import com.zc.bean.ZcSetMeal;
 import com.zc.bean.ZcUser;
 import com.zc.constant.StatusEnum;
 import com.zc.constant.WebUserConstant;
 import com.zc.service.ZcCardManageService;
+import com.zc.service.ZcCommissionRecordService;
+import com.zc.service.ZcSetMealService;
+import com.zc.service.ZcUserService;
 import com.zc.utils.RedisTokenOper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,25 +34,59 @@ public class CardManageController {
     private ZcCardManageService zcCardManageService;
 
     @Autowired(required = false)
+    private ZcSetMealService zcSetMealService;
+
+    @Autowired(required = false)
     private HttpServletRequest request;
 
     @Autowired(required = false)
     private RedisTokenOper redisTokenOper;
 
+    @Autowired(required = false)
+    private ZcUserService zcUserService;
+
+    @Autowired(required = false)
+    private ZcCommissionRecordService zcCommissionRecordService;
+
     /**
      * 单卡充值
      */
     @RequestMapping("/singleRecharge")
-    public Map<String, Object> singleRecharge(Long iccid) {
+    public Map<String, Object> singleRecharge(Long iccid, Long setMealId) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         returnObject.put("message", "服务器错误");
         try {
             if (null != iccid) {
-                //操作充值
+                String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+                ZcUser zcUser = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+                if (null != zcUser) {
+                    ZcCardManage zcCardManage = zcCardManageService.queryByIccid(iccid);
+                    ZcSetMeal setMeal = zcSetMealService.queryById(setMealId);
+                    ZcUser zcUser1 = zcUserService.queryById(zcUser.getId());
+                   //应该先进行充值
 
-                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
-                returnObject.put("message", "请求成功");
+                    //操作充值
+                    ZcCommissionRecord record = new ZcCommissionRecord();
+                    record.setUserId(zcUser.getId());
+                    record.setCreateTime(new Date());
+                    //充值
+                    record.setChangeType(0);
+                    record.setChangeAmount(setMeal.getTerminalPrice() - setMeal.getCostPrice());
+                    record.setChangeAfterAmount(zcUser1.getAccountBalance() + (setMeal.getTerminalPrice() - setMeal.getCostPrice()));
+                    if (zcUser1.getParentId() != 0) {
+                        //表示是三级代理
+                        record.setRemark("下级代理" + zcUser1.getUserName() + "订单号" + "(" + zcCardManage.getApiName() + ")" + iccid + "自动充值" + setMeal.getSetMealName());
+                    } else {
+                        record.setRemark("二级代理" + zcUser1.getUserName() + "订单号" + "(" + zcCardManage.getApiName() + ")" + iccid + "自动充值" + setMeal.getSetMealName());
+                    }
+                    //将日志插入
+                    zcCommissionRecordService.insertZcCommissionRecord(record);
+
+                    returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                    returnObject.put("message", "请求成功");
+                }
+
             } else {
                 returnObject.put("code", WebUserConstant.STATUICCICNOERROR);
                 returnObject.put("message", "iccid为空");
@@ -224,12 +264,12 @@ public class CardManageController {
      * 通过iccid 只有一条
      */
     @GetMapping("/queryByIccid")
-    public Map<String, Object> queryByIccid(String iccid) {
+    public Map<String, Object> queryByIccid(Long iccid) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         returnObject.put("message", "服务器错误");
         try {
-            if (!StringUtils.isEmpty(iccid)) {
+            if (null != iccid) {
                 ZcCardManage zcCardManage = zcCardManageService.queryByIccid(iccid);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                 returnObject.put("data", zcCardManage);

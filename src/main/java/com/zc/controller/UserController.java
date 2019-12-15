@@ -41,9 +41,6 @@ public class UserController {
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
-            logger.info("pwd--"+zcUser.getPassword());
-            logger.info("changePwd--"+zcUser.getChangePwd());
-            logger.info("cashOutPwd--"+zcUser.getCashOutPwd());
             if (null != user) {
                 user = zcUserService.queryById(user.getId());
                 //验证登录密码是否正确  表示需要修改的是登录密码
