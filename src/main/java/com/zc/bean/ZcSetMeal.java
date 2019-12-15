@@ -36,10 +36,10 @@ public class ZcSetMeal implements Serializable {
     private Long apiId;
 
     /**
-     * 有效期
+     * 有效期 单位月
      * isNullAble:1
      */
-    private Date endTime;
+    private Integer periodTime;
 
     /**
      * 成本 价格 （用的话除100）
@@ -58,6 +58,11 @@ public class ZcSetMeal implements Serializable {
      * isNullAble:1
      */
     private Long terminalPrice;
+
+    /**
+     * 套餐名称
+     */
+    private String setMealName;
 
     //========辅助字段===========
     /**
@@ -83,4 +88,9 @@ public class ZcSetMeal implements Serializable {
      * terminalPrice 除100以后
      */
     private BigDecimal terminalPriceDecimal;
+
+    /**
+     * 过期时间
+     * */
+    private String periodTimeStr;
 }

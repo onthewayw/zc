@@ -73,4 +73,7 @@ public class ZcCashOutRecord implements Serializable {
     private Integer remarkStatus;
     //=====辅助金额======
     private BigDecimal cashOutAmountDecimal;
+
+    private String createBeginTimeStr;
+    private String createEndTimeStr;
 }

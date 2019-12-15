@@ -34,9 +34,29 @@ public class CardManageController {
     private RedisTokenOper redisTokenOper;
 
     /**
-     * 获取三种总数
-     * */
+     * 单卡充值
+     */
+    @RequestMapping("/singleRecharge")
+    public Map<String, Object> singleRecharge(Long iccid) {
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        returnObject.put("message", "服务器错误");
+        try {
+            if (null != iccid) {
+                //操作充值
 
+                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+                returnObject.put("message", "请求成功");
+            } else {
+                returnObject.put("code", WebUserConstant.STATUICCICNOERROR);
+                returnObject.put("message", "iccid为空");
+                return returnObject;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnObject;
+    }
 
     /**
      * 批量充值

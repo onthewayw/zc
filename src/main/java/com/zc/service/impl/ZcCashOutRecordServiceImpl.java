@@ -10,6 +10,7 @@ import com.zc.mapper.ZcCashOutRecordMapper;
 import com.zc.mapper.ZcUserMapper;
 import com.zc.service.ZcCashOutRecordService;
 import com.zc.service.ZcUserService;
+import com.zc.utils.MonthFirstEndDay;
 import com.zc.utils.RedisTokenOper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,11 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
     }
 
     @Override
+    public int queryZcCashOutRecordCount(ZcCashOutRecord object) {
+        return zcCashOutRecordMapper.queryZcCashOutRecordCount(object);
+    }
+
+    @Override
     public PageInfo<ZcCashOutRecord> queryByPage(Integer page, Integer pageSize, ZcCashOutRecord zcCashOutRecord) {
         //开启分页查询，写在查询语句上面
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（select）会被分页
@@ -89,6 +95,19 @@ public class ZcCashOutRecordServiceImpl implements ZcCashOutRecordService {
                 //当前余额要大于等于提现金额
                 returnObject.put("code", StatusEnum.CASH_OUT_GREATER_THAN_AMOUNT_ERR.getCode());
                 returnObject.put("message", StatusEnum.CASH_OUT_GREATER_THAN_AMOUNT_ERR.getName());
+                return returnObject;
+            }
+            String firstDay = MonthFirstEndDay.getFirstDay();
+            String lastDay = MonthFirstEndDay.getLastDay();
+            ZcCashOutRecord zcCashOutRecord = new ZcCashOutRecord();
+            zcCashOutRecord.setUserId(zcUser.getId());
+            zcCashOutRecord.setCreateBeginTimeStr(firstDay);
+            zcCashOutRecord.setCreateEndTimeStr(lastDay);
+            int count = zcCashOutRecordMapper.queryZcCashOutRecordCount(record);
+            if (count > 3) {
+                //当前余额要大于等于提现金额
+                returnObject.put("code", StatusEnum.CASH_OUT_GREATER_THAN_THREE_ERR.getCode());
+                returnObject.put("message", StatusEnum.CASH_OUT_GREATER_THAN_THREE_ERR.getName());
                 return returnObject;
             }
             //获取当前用户的金额
