@@ -237,6 +237,7 @@
                 `cash_out_pwd` = #{cashOutPwd} and
             </if>
         </trim>
+        order by id desc
     </select>
 
 </mapper>

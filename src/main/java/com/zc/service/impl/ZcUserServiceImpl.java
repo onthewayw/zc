@@ -74,7 +74,7 @@ public class ZcUserServiceImpl implements ZcUserService {
         try {
             //1 根据手机号查询
             ZcUser user = new ZcUser();
-            user.setPhoneNum(phonenum);
+            user.setLoginAccount(phonenum);
             ZcUser zcUser = zcUserMapper.selectOne(user);
             // 2 判断是否存在
             if (null == zcUser) {

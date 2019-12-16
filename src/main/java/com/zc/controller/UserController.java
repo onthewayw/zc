@@ -123,10 +123,14 @@ public class UserController {
             ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
             if (null != zcUser) {
                 //将密码加密后创建
+                if (null != zcUser.getPassword()) {
+                    zcUser.setPassword(zcUser.getPassword().replace(" ", ""));
+                }
                 if (!StringUtils.isEmpty(zcUser.getPassword())) {
                     String pw = CodecUtils.md5Hex(zcUser.getPassword(), SecretConstant.SLAT);
                     zcUser.setPassword(pw);
                 }
+
                 /*if (!StringUtils.isEmpty(zcUser.getCashOutPwd())) {
                     String pw = CodecUtils.md5Hex(zcUser.getCashOutPwd(), SecretConstant.SLAT);
                     zcUser.setCashOutPwd(pw);
@@ -173,6 +177,7 @@ public class UserController {
         }
         return returnObject;
     }
+
     /**
      * 分页查询
      */
