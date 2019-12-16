@@ -21,7 +21,9 @@ public enum StatusEnum {
 
     CASH_OUT_GREATER_THAN_ZERO_ERR(501,"提现金额要大于0"),
     CASH_OUT_GREATER_THAN_AMOUNT_ERR(502,"提现金额要小于当前余额"),
-
+    CASH_OUT_GREATER_THAN_THREE_ERR(503,"提现次数大于三次"),
+    CASH_OUT_CASH_OUT_PWD_EMPTY_ERR(504,"提现密码为空"),
+    CASH_OUT_CASH_OUT_PWD_ERR(505,"提现密码错误"),
     //登录密码错误
     LOGIN_PWD_CHANGE_ERROR(501, "登录密码错误"),
     //提现密码错误

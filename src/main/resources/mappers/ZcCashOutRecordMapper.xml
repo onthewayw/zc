@@ -173,5 +173,45 @@
             </if>
         </trim>
     </select>
+    <select id="queryZcCashOutRecordCount" resultType="int">
+        select
+        count(1)
+        from  `zc_cash_out_record`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="cashOutAmount != null">
+                `cash_out_amount` = #{cashOutAmount} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="alipayAccount != null and alipayAccount!=''">
+                `alipay_account` = #{alipayAccount} and
+            </if>
+            <if test="alipayName != null and alipayName!=''">
+                `alipay_name` = #{alipayName} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="remarkStatus != null and remarkStatus!=''">
+                `remark_status` = #{remarkStatus} and
+            </if>
+            <if test="createBeginTimeStr != null and createBeginTimeStr!=''">
+                `create_time` &gt;= #{createBeginTimeStr} and
+            </if>
+            <if test="createEndTimeStr != null and createEndTimeStr!=''">
+                `create_time` &lt; #{createEndTimeStr} and
+            </if>
+        </trim>
+    </select>
 
 </mapper>

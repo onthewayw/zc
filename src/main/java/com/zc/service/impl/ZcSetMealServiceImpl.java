@@ -35,8 +35,16 @@ public class ZcSetMealServiceImpl implements ZcSetMealService {
             meal.setCostPriceDecimal(BigDecimal.valueOf(meal.getCostPrice()/100));
             meal.setTerminalPriceDecimal(BigDecimal.valueOf(meal.getTerminalPrice()/100));
             meal.setAgentCostPriceDecimal(BigDecimal.valueOf(meal.getAgentCostPrice()/100));
+            if(null!=meal.getPeriodTime()){
+                meal.setPeriodTimeStr(meal.getPeriodTime()+"个月");
+            }
         }).collect(Collectors.toList());
         return records;
+    }
+
+    @Override
+    public ZcSetMeal queryById(Long id) {
+        return zcSetMealMapper.queryById(id);
     }
 
     @Override

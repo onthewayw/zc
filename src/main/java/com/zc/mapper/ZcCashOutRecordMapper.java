@@ -14,4 +14,5 @@ public interface ZcCashOutRecordMapper {
     int updateZcCashOutRecord(ZcCashOutRecord object);
 
     List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord object);
+    int queryZcCashOutRecordCount(ZcCashOutRecord object);
 }

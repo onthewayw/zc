@@ -11,8 +11,11 @@ public interface ZcSetMealService {
     int updateZcSetMeal(ZcSetMeal object);
 
     List<ZcSetMeal> queryZcSetMeal(ZcSetMeal object);
+
+    ZcSetMeal queryById(Long id);
+
     /**
      * 分页查询
-     * */
+     */
     PageInfo<ZcSetMeal> queryByPage(Integer page, Integer pageSize, ZcSetMeal zcSetMeal);
 }

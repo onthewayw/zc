@@ -6,10 +6,11 @@
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="apiId" column="user_id"/>
-        <result property="endTime" column="end_time"/>
+        <result property="periodTime" column="period_time"/>
         <result property="costPrice" column="cost_price"/>
         <result property="agentCostPrice" column="agent_cost_price"/>
         <result property="terminalPrice" column="terminal_price"/>
+        <result property="setMealName" column="set_meal_name"/>
         <result property="apiName" column="apiName"/>
         <result property="type" column="type"/>
 
@@ -20,10 +21,11 @@
             `id`,
             `user_id`,
             `api_id`,
-            `end_time`,
+            `period_time`,
             `cost_price`,
             `agent_cost_price`,
             `terminal_price`,
+            `set_meal_name`,
         </trim>
     </sql>
 
@@ -44,8 +46,8 @@
             <if test="apiId!=null">
                 `api_id`,
             </if>
-            <if test="endTime!=null">
-                `end_time`,
+            <if test="periodTime!=null">
+                `period_time`,
             </if>
             <if test="costPrice!=null">
                 `cost_price`,
@@ -55,6 +57,9 @@
             </if>
             <if test="terminalPrice!=null">
                 `terminal_price`,
+            </if>
+            <if test="setMealName!=null">
+                `set_meal_name`,
             </if>
         </trim>
         )
@@ -70,8 +75,8 @@
             <if test="apiId!=null">
                 #{apiId},
             </if>
-            <if test="endTime!=null">
-                #{endTime},
+            <if test="periodTime!=null">
+                #{periodTime},
             </if>
             <if test="costPrice!=null">
                 #{costPrice},
@@ -81,6 +86,9 @@
             </if>
             <if test="terminalPrice!=null">
                 #{terminalPrice},
+            </if>
+            <if test="setMealName!=null">
+                #{setMealName},
             </if>
         </trim>
         )
@@ -97,8 +105,8 @@
             <if test="apiId != null and apiId!=''">
                 `api_id` = #{apiid},
             </if>
-            <if test="endTime != null">
-                `end_time` = #{endTime},
+            <if test="periodTime != null">
+                `period_time` = #{periodTime},
             </if>
             <if test="costPrice != null">
                 `cost_price` = #{costPrice},
@@ -109,23 +117,38 @@
             <if test="terminalPrice != null">
                 `terminal_price` = #{terminalPrice},
             </if>
+            <if test="setMealName != null">
+                `set_meal_name` = #{setMealName},
+            </if>
         </trim>
         WHERE
         <trim suffixOverrides="and">
             `id` = #{id} and
         </trim>
     </update>
-
+    <select id="queryById" resultMap="ZcSetMealMap">
+        select
+        `id`,
+        `user_id`,
+        `api_id`,
+        `period_time`,
+        `cost_price`,
+        `agent_cost_price`,
+        `terminal_price`,
+        `set_meal_name`
+        where id=#{id}
+    </select>
 
     <select id="queryZcSetMeal" resultMap="ZcSetMealMap">
         select
         s.id,
         s.user_id,
         s.api_id,
-        s.end_time,
+        s.period_time,
         s.cost_price,
         s.agent_cost_price,
         s.terminal_price,
+        s.set_meal_name,
         a.api_name as apiName,
         a.type
         from zc_set_meal s
@@ -140,8 +163,8 @@
             <if test="apiId != null and apiId!=''">
                 s.api_id = #{apiId} and
             </if>
-            <if test="endTime != null">
-                s.end_time = #{endTime} and
+            <if test="periodTime != null">
+                s.period_time = #{periodTime} and
             </if>
             <if test="costPrice != null">
                 s.cost_price = #{costPrice} and
@@ -151,6 +174,9 @@
             </if>
             <if test="terminalPrice != null">
                 s.terminal_price = #{terminalPrice} and
+            </if>
+            <if test="setMealName != null">
+                s.set_meal_name = #{setMealName} and
             </if>
             <if test="type != null">
                 a.type = #{type} and

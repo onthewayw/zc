@@ -14,6 +14,7 @@ public interface ZcCashOutRecordService {
     int updateZcCashOutRecord(ZcCashOutRecord object);
 
     List<ZcCashOutRecord> queryZcCashOutRecord(ZcCashOutRecord object);
+    int queryZcCashOutRecordCount(ZcCashOutRecord object);
 
     /**
      * 分页查询

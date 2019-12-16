@@ -9,6 +9,8 @@ import com.zc.service.ZcUserService;
 import com.zc.utils.CodecUtils;
 import com.zc.utils.RedisTokenOper;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired(required = false)
     private ZcUserService zcUserService;
     @Autowired(required = false)
@@ -30,14 +34,14 @@ public class UserController {
     /**
      * 验证密码并且修改密码
      */
-    @PostMapping("/changePwd")
+    @RequestMapping("/changePwd")
     public Map<String, Object> changePwd(ZcUser zcUser) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);
         try {
             String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
             ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
-            if (null != zcUser) {
+            if (null != user) {
                 user = zcUserService.queryById(user.getId());
                 //验证登录密码是否正确  表示需要修改的是登录密码
                 if (!StringUtils.isEmpty(zcUser.getPassword())) {
@@ -109,7 +113,7 @@ public class UserController {
     /**
      * 新增人员
      */
-    @PostMapping("/addOrUpdate")
+    @RequestMapping("/addOrUpdate")
     public Map<String, Object> addRecord(ZcUser zcUser) {
         Map<String, Object> returnObject = new HashMap<>();
         returnObject.put("code", WebUserConstant.STATUSERROR);

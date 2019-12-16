@@ -16,5 +16,5 @@ public interface ZcCardManageMapper {
     /**
      * 通过iccid
      * */
-    ZcCardManage queryByIccid(String iccid);
+    ZcCardManage queryByIccid(Long iccid);
 }
