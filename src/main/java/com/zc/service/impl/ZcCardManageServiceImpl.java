@@ -47,7 +47,8 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
         PageInfo<ZcCardManage> pageInfo = new PageInfo<>(zcCardManages);
         if (null != pageInfo.getList() && pageInfo.getList().size() != 0) {
             List<ZcCardManage> records = pageInfo.getList().stream().peek(card -> {
-                card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance()/100));
+                card.setAllowanceDecimal(BigDecimal.valueOf(card.getAllowance() / 100));
+                card.setUsedTrafficDecimal(BigDecimal.valueOf(card.getUsedTraffic() / 100));
             }).collect(Collectors.toList());
             pageInfo.setList(records);
         }
@@ -56,6 +57,9 @@ public class ZcCardManageServiceImpl implements ZcCardManageService {
 
     @Override
     public ZcCardManage queryByIccid(Long iccid) {
-        return zcCardManageMapper.queryByIccid(iccid);
+        ZcCardManage zcCardManage = zcCardManageMapper.queryByIccid(iccid);
+        zcCardManage.setAllowanceDecimal(BigDecimal.valueOf(zcCardManage.getAllowance() / 100));
+        zcCardManage.setUsedTrafficDecimal(BigDecimal.valueOf(zcCardManage.getUsedTraffic() / 100));
+        return zcCardManage;
     }
 }

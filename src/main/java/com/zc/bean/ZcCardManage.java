@@ -85,6 +85,11 @@ public class ZcCardManage implements Serializable {
      */
     private String area;
 
+    /**
+     * 已使用流量
+     */
+    private Long usedTraffic;
+
     //===========辅助查询字段 返回不需要展示=========================
     /**
      * 开始iccid
@@ -107,10 +112,14 @@ public class ZcCardManage implements Serializable {
      * 套餐余量 （除100）
      */
     private BigDecimal allowanceDecimal;
+    /**
+     * 套餐已使用费量 （除100）
+     */
+    private BigDecimal usedTrafficDecimal;
 
     /**
      * 套餐Id
-     * */
+     */
     private Long setMealId;
 
 }

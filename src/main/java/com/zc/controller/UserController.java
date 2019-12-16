@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -165,6 +166,27 @@ public class UserController {
                 zcUser.setParentId(user.getId());
                 PageInfo<ZcUser> pageInfo = zcUserService.queryByPage(page, size, zcUser);
                 returnObject.put("data", pageInfo);
+                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnObject;
+    }
+    /**
+     * 分页查询
+     */
+    @RequestMapping("/queryZcUser")
+    public Map<String, Object> queryZcUser(ZcUser zcUser) {
+        Map<String, Object> returnObject = new HashMap<>();
+        returnObject.put("code", WebUserConstant.STATUSERROR);
+        try {
+            String token = request.getHeader(WebUserConstant.TOKENAUTHORIZATION);
+            ZcUser user = redisTokenOper.getInfo(token, WebUserConstant.SESSIONUSERINFO, ZcUser.class);
+            if (null != user) {
+                zcUser.setParentId(user.getId());
+                List<ZcUser> zcUsers = zcUserService.queryZcUser(zcUser);
+                returnObject.put("data", zcUsers);
                 returnObject.put("code", WebUserConstant.STATUSSUCCESS);
             }
         } catch (Exception e) {
