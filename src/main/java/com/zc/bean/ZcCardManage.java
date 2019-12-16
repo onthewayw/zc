@@ -108,4 +108,9 @@ public class ZcCardManage implements Serializable {
      */
     private BigDecimal allowanceDecimal;
 
+    /**
+     * 套餐Id
+     * */
+    private Long setMealId;
+
 }

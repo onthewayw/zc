@@ -2,10 +2,12 @@ package com.zc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zc.bean.ZcOperationDiary;
 import com.zc.bean.ZcUser;
 import com.zc.constant.SecretConstant;
 import com.zc.constant.StatusEnum;
 import com.zc.constant.WebUserConstant;
+import com.zc.mapper.ZcOperationDiaryMapper;
 import com.zc.mapper.ZcUserMapper;
 import com.zc.service.ZcUserService;
 import com.zc.utils.CodecUtils;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,9 @@ public class ZcUserServiceImpl implements ZcUserService {
 
     @Autowired(required = false)
     private RedisTokenOper redisTokenOper;
+
+    @Autowired(required = false)
+    private ZcOperationDiaryMapper zcOperationDiaryMapper;
 
     @Override
     public Long insertZcUser(ZcUser object) {
@@ -97,6 +103,12 @@ public class ZcUserServiceImpl implements ZcUserService {
             zcUser.setPassword(null);
             //将信息放入redis
             redisTokenOper.setInfo(token, WebUserConstant.SESSIONUSERINFO, zcUser);
+            //登录成功 添加记录
+            ZcOperationDiary diary=new ZcOperationDiary();
+            diary.setRemark("登录系统");
+            diary.setUserId(zcUser.getId());
+            diary.setCreateTime(new Date());
+            zcOperationDiaryMapper.insertZcOperationDiary(diary);
             returnMap.put("token", token);
             returnMap.put("userInfo", zcUser);
             returnMap.put("status", StatusEnum.LOGIN_STATUS_SUCCESS.getCode());

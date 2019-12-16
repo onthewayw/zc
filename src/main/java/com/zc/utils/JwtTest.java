@@ -63,4 +63,14 @@ public class JwtTest {
         map.put("w",1);
         System.out.println(map.get("w"));
     }
+    @Test
+    public void testInt(){
+        int a=1;
+        int b=1;
+        Integer c=1;
+        Integer d=1;
+        System.out.println(a==b);
+        System.out.println(a==c);
+        System.out.println(d==c);
+    }
 }

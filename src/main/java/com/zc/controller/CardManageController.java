@@ -1,16 +1,10 @@
 package com.zc.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zc.bean.ZcCardManage;
-import com.zc.bean.ZcCommissionRecord;
-import com.zc.bean.ZcSetMeal;
-import com.zc.bean.ZcUser;
+import com.zc.bean.*;
 import com.zc.constant.StatusEnum;
 import com.zc.constant.WebUserConstant;
-import com.zc.service.ZcCardManageService;
-import com.zc.service.ZcCommissionRecordService;
-import com.zc.service.ZcSetMealService;
-import com.zc.service.ZcUserService;
+import com.zc.service.*;
 import com.zc.utils.RedisTokenOper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -48,6 +42,9 @@ public class CardManageController {
     @Autowired(required = false)
     private ZcCommissionRecordService zcCommissionRecordService;
 
+    @Autowired(required = false)
+    private ZcOperationDiaryService operationDiaryService;
+
     /**
      * 单卡充值
      */
@@ -64,7 +61,7 @@ public class CardManageController {
                     ZcCardManage zcCardManage = zcCardManageService.queryByIccid(iccid);
                     ZcSetMeal setMeal = zcSetMealService.queryById(setMealId);
                     ZcUser zcUser1 = zcUserService.queryById(zcUser.getId());
-                   //应该先进行充值
+                    //应该先进行充值
 
                     //操作充值
                     ZcCommissionRecord record = new ZcCommissionRecord();
@@ -134,6 +131,26 @@ public class CardManageController {
                     returnObject.put("recordNum", cardManage.getEndIccid() - cardManage.getBeginIccid());
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                     returnObject.put("message", "请求成功");
+                    if(null!=cardManage.getBeginIccid()){
+                        ZcSetMeal setMeal = zcSetMealService.queryById(cardManage.getSetMealId());
+                        ZcUser zcUser1 = zcUserService.queryById(zcUser.getId());
+
+                        //操作充值
+                        ZcCommissionRecord record = new ZcCommissionRecord();
+                        record.setUserId(zcUser.getId());
+                        record.setCreateTime(new Date());
+                        //充值
+                        record.setChangeType(0);
+                        record.setChangeAmount(setMeal.getTerminalPrice() - setMeal.getCostPrice());
+                        record.setChangeAfterAmount(zcUser1.getAccountBalance() + (setMeal.getTerminalPrice() - setMeal.getCostPrice()));
+                        if (zcUser1.getParentId() != 0) {
+                            //表示是三级代理
+                            record.setRemark("下级代理" + zcUser1.getUserName() + "订单号" + "(" + zcCardManages.get(0).getApiName() + ")" + cardManage.getBeginIccid()+"-"+cardManage.getEndIccid() + "自动充值" + setMeal.getSetMealName());
+                        } else {
+                            record.setRemark("二级代理" + zcUser1.getUserName() + "订单号" + "(" + zcCardManages.get(0).getApiName() + ")" + cardManage.getBeginIccid()+"-"+cardManage.getEndIccid() + "自动充值" + setMeal.getSetMealName());
+                        }
+                    }
+
                 }
             }
         } catch (Exception e) {
@@ -178,6 +195,13 @@ public class CardManageController {
                     returnObject.put("recordNum", cardManage.getEndIccid() - cardManage.getBeginIccid());
                     returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                     returnObject.put("message", "请求成功");
+
+                    //日志
+                    ZcOperationDiary diary = new ZcOperationDiary();
+                    diary.setRemark("划卡" + cardManage.getBeginIccid() + "-" + cardManage.getEndIccid() + "给" + zcUser.getUserName());
+                    diary.setUserId(zcUser.getId());
+                    diary.setCreateTime(new Date());
+                    operationDiaryService.insertZcOperationDiary(diary);
                 }
             }
         } catch (Exception e) {

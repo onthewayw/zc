@@ -128,14 +128,9 @@
     </update>
     <select id="queryById" resultMap="ZcSetMealMap">
         select
-        `id`,
-        `user_id`,
-        `api_id`,
-        `period_time`,
-        `cost_price`,
-        `agent_cost_price`,
-        `terminal_price`,
-        `set_meal_name`
+        <include refid="allResult"></include>
+        from
+        `zc_set_meal`
         where id=#{id}
     </select>
 

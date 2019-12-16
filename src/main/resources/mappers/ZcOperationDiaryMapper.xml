@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.mapper.ZcOperationDiaryMapper">
+    <resultMap type="com.zc.bean.ZcOperationDiary" id="ZcOperationDiaryMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `user_id`,
+            `remark`,
+            `create_time`,
+        </trim>
+    </sql>
+
+
+    <insert id="insertZcOperationDiary" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `zc_operate_diary`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="userId!=null">
+                `user_id`,
+            </if>
+            <if test="remark!=null">
+                `remark`,
+            </if>
+            <if test="createTime!=null">
+                `create_time`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="remark!=null">
+                #{remark},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <select id="queryZcOperationDiary" resultMap="ZcOperationDiaryMap">
+        select
+        `id`,
+        `user_id`,
+        `remark`,
+        `create_time`
+        from zc_operate_diary
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                id = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                user_id = #{userId} and
+            </if>
+            <if test="remark != null and remark!=''">
+                remark = #{remark} and
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime} and
+            </if>
+        </trim>
+    </select>
+
+</mapper>
