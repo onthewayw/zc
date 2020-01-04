@@ -27,4 +27,9 @@ public interface ZcUserService {
      * 分页查询
      * */
     PageInfo<ZcUser> queryByPage(Integer page, Integer pageSize,ZcUser zcUser);
+
+    /**
+     * 通过手机号码查询用户信息
+     */
+    ZcUser selectOne(ZcUser zcUser);
 }

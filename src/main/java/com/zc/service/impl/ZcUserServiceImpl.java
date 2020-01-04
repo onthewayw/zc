@@ -104,7 +104,7 @@ public class ZcUserServiceImpl implements ZcUserService {
             //将信息放入redis
             redisTokenOper.setInfo(token, WebUserConstant.SESSIONUSERINFO, zcUser);
             //登录成功 添加记录
-            ZcOperationDiary diary=new ZcOperationDiary();
+            ZcOperationDiary diary = new ZcOperationDiary();
             diary.setRemark("登录系统");
             diary.setUserId(zcUser.getId());
             diary.setCreateTime(new Date());
@@ -135,5 +135,10 @@ public class ZcUserServiceImpl implements ZcUserService {
             pageInfo.setList(records);
         }
         return pageInfo;
+    }
+
+    @Override
+    public ZcUser selectOne(ZcUser zcUser) {
+        return zcUserMapper.selectOne(zcUser);
     }
 }

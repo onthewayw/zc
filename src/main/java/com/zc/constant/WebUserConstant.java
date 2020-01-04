@@ -37,4 +37,10 @@ public class WebUserConstant {
      * status状态码  500
      */
     public static final Integer FIVEHUNDRED = 500;
+
+    /**
+     * status 为451 账户已经存在
+     * */
+    public static final Integer LOGINACCOUNTMORE = 451;
+
 }

@@ -135,12 +135,23 @@ public class UserController {
                     String pw = CodecUtils.md5Hex(zcUser.getCashOutPwd(), SecretConstant.SLAT);
                     zcUser.setCashOutPwd(pw);
                 }*/
+
                 if (null != zcUser.getId()) {
                     int i = zcUserService.updateZcUser(zcUser);
                     if (i != 0) {
                         returnObject.put("code", WebUserConstant.STATUSSUCCESS);
                     }
                 } else {
+                    //1 根据手机号查询
+                    ZcUser user1 = new ZcUser();
+                    user1.setLoginAccount(zcUser.getLoginAccount());
+                    List<ZcUser> zcUsers = zcUserService.queryZcUser(user1);
+                    if(!zcUsers.isEmpty()){
+                        returnObject.put("code", WebUserConstant.LOGINACCOUNTMORE);
+                        returnObject.put("message", "账号重复");
+                        return returnObject;
+                    }
+
                     //是有本人创建的
                     zcUser.setParentId(user.getId());
                     Long id = zcUserService.insertZcUser(zcUser);

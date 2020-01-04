@@ -1,28 +1,26 @@
 package com.zc.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * java编程题：100个线程同时向一个银行账户中存入1元钱 
+ * java编程题：100个线程同时向一个银行账户中存入1元钱
  */
 public class test1 {
 
     public static void main(String[] args) {
-        Account account = new Account();
-        ExecutorService service = Executors.newFixedThreadPool(100);
+        foo();
+    }
 
-        for (int i = 1; i <= 100; i++) {
-            service.execute(new MoneyThread(account, 1));
+    public static void foo() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 2000000000; i++) {
+
         }
-
-        service.shutdown();
-
-        while(!service.isTerminated()){}
-
-        System.out.println("账户金额："+account.getBalance());
     }
 
 }
@@ -32,9 +30,9 @@ public class test1 {
  */
 class Account {
 
-    private double balance;			//账户余额
+    private double balance;            //账户余额
 
-    private Lock accountLock = new ReentrantLock();			//锁对象
+    private Lock accountLock = new ReentrantLock();            //锁对象
 
     /**
      * 存入金额方法
@@ -58,24 +56,24 @@ class Account {
 
     /**
      * 存入金额方法
-     *
+     * <p>
      * 实现方式2：
-     * 	  通过JDK1.5显示式锁机制，为每个银行账户创建一个锁对象，在存款操作时进行加锁和解锁的操作。
+     * 通过JDK1.5显示式锁机制，为每个银行账户创建一个锁对象，在存款操作时进行加锁和解锁的操作。
      */
     public void deposit(double money) {
-        accountLock.lock();			//加锁
+        accountLock.lock();            //加锁
 
         double newBalance = balance + money;
 
         try {
-            Thread.sleep(10);		//模拟此业务需要处理时间
+            Thread.sleep(10);        //模拟此业务需要处理时间
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         balance = newBalance;
 
-        accountLock.unlock();		//解锁
+        accountLock.unlock();        //解锁
 
     }
 
