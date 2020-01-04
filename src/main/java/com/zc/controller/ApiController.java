@@ -38,16 +38,12 @@ public class ApiController {
         returnObject.put("code", WebUserConstant.STATUSERROR);
         returnObject.put("message", "服务器请求出错");
         try {
-            if (null != type) {
-                ZcApi zcApi = new ZcApi();
-                zcApi.setType(type);
-                List<ZcApi> zcApis = zcApiService.queryZcApi(zcApi);
-                returnObject.put("code", WebUserConstant.STATUSSUCCESS);
-                returnObject.put("message", "请求成功");
-                returnObject.put("data", zcApis);
-            } else {
-                returnObject.put("message", "请输入type");
-            }
+            ZcApi zcApi = new ZcApi();
+            zcApi.setType(type);
+            List<ZcApi> zcApis = zcApiService.queryZcApi(zcApi);
+            returnObject.put("code", WebUserConstant.STATUSSUCCESS);
+            returnObject.put("message", "请求成功");
+            returnObject.put("data", zcApis);
         } catch (Exception e) {
             e.printStackTrace();
         }
